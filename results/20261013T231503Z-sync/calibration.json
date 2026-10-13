@@ -1,0 +1,602 @@
+{
+  "std-mutex-1": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "std-mutex",
+      "--threads",
+      "1",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "std-mutex",
+      "threads": 1,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.00047675,
+      "operations": 100000,
+      "operations_per_second": 209753539.591,
+      "checksum": 100000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 31463031
+  },
+  "futex-mutex-2": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "futex-mutex",
+      "--threads",
+      "2",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "futex-mutex",
+      "threads": 2,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.001984,
+      "operations": 200000,
+      "operations_per_second": 100806451.613,
+      "checksum": 200000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 7560484
+  },
+  "tagged-stack-1": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "tagged-stack",
+      "--threads",
+      "1",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "tagged-stack",
+      "threads": 1,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.000975292,
+      "operations": 200000,
+      "operations_per_second": 205066790.254,
+      "checksum": 5000050000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 15380010
+  },
+  "futex-mutex-8": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "futex-mutex",
+      "--threads",
+      "8",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "futex-mutex",
+      "threads": 8,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.015915958,
+      "operations": 800000,
+      "operations_per_second": 50264018.0377,
+      "checksum": 800000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 942451
+  },
+  "std-mutex-4": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "std-mutex",
+      "--threads",
+      "4",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "std-mutex",
+      "threads": 4,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.005323083,
+      "operations": 400000,
+      "operations_per_second": 75144422.8843,
+      "checksum": 400000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 2817916
+  },
+  "mutex-queue-8": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "mutex-queue",
+      "--threads",
+      "8",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "mutex-queue",
+      "threads": 8,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.036934917,
+      "operations": 1600000,
+      "operations_per_second": 43319442.142,
+      "checksum": 320000400000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 406120
+  },
+  "hazard-queue-2": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "hazard-queue",
+      "--threads",
+      "2",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "hazard-queue",
+      "threads": 2,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.026369208,
+      "operations": 400000,
+      "operations_per_second": 15169207.9641,
+      "checksum": 20000100000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 568846
+  },
+  "mutex-queue-1": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "mutex-queue",
+      "--threads",
+      "1",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "mutex-queue",
+      "threads": 1,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.000527833,
+      "operations": 200000,
+      "operations_per_second": 378907722.708,
+      "checksum": 5000050000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 28418080
+  },
+  "mutex-queue-2": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "mutex-queue",
+      "--threads",
+      "2",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "mutex-queue",
+      "threads": 2,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.009354,
+      "operations": 400000,
+      "operations_per_second": 42762454.5649,
+      "checksum": 20000100000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 1603593
+  },
+  "mutex-stack-8": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "mutex-stack",
+      "--threads",
+      "8",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "mutex-stack",
+      "threads": 8,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.0347295,
+      "operations": 1600000,
+      "operations_per_second": 46070343.656,
+      "checksum": 320000400000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 431910
+  },
+  "std-mutex-2": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "std-mutex",
+      "--threads",
+      "2",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "std-mutex",
+      "threads": 2,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.004746125,
+      "operations": 200000,
+      "operations_per_second": 42139640.2328,
+      "checksum": 200000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 3160474
+  },
+  "tagged-stack-2": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "tagged-stack",
+      "--threads",
+      "2",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "tagged-stack",
+      "threads": 2,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.004828667,
+      "operations": 400000,
+      "operations_per_second": 82838597.0704,
+      "checksum": 20000100000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 3106448
+  },
+  "futex-mutex-4": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "futex-mutex",
+      "--threads",
+      "4",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "futex-mutex",
+      "threads": 4,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.005430375,
+      "operations": 400000,
+      "operations_per_second": 73659738.0476,
+      "checksum": 400000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 2762241
+  },
+  "mutex-stack-2": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "mutex-stack",
+      "--threads",
+      "2",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "mutex-stack",
+      "threads": 2,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.007549542,
+      "operations": 400000,
+      "operations_per_second": 52983346.5394,
+      "checksum": 20000100000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 1986876
+  },
+  "futex-mutex-1": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "futex-mutex",
+      "--threads",
+      "1",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "futex-mutex",
+      "threads": 1,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.003885208,
+      "operations": 100000,
+      "operations_per_second": 25738647.712,
+      "checksum": 100000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 3860798
+  },
+  "hazard-queue-1": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "hazard-queue",
+      "--threads",
+      "1",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "hazard-queue",
+      "threads": 1,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.005628209,
+      "operations": 200000,
+      "operations_per_second": 35535283.0714,
+      "checksum": 5000050000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 2665147
+  },
+  "tagged-stack-8": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "tagged-stack",
+      "--threads",
+      "8",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "tagged-stack",
+      "threads": 8,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.082647375,
+      "operations": 1600000,
+      "operations_per_second": 19359356.5434,
+      "checksum": 320000400000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 181494
+  },
+  "mutex-queue-4": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "mutex-queue",
+      "--threads",
+      "4",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "mutex-queue",
+      "threads": 4,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.016022583,
+      "operations": 800000,
+      "operations_per_second": 49929527.5924,
+      "checksum": 80000200000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 936179
+  },
+  "tagged-stack-4": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "tagged-stack",
+      "--threads",
+      "4",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "tagged-stack",
+      "threads": 4,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.0554965,
+      "operations": 800000,
+      "operations_per_second": 14415323.4889,
+      "checksum": 80000200000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 270288
+  },
+  "std-mutex-8": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "std-mutex",
+      "--threads",
+      "8",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "std-mutex",
+      "threads": 8,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.025768167,
+      "operations": 800000,
+      "operations_per_second": 31046057.7192,
+      "checksum": 800000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 582114
+  },
+  "hazard-queue-4": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "hazard-queue",
+      "--threads",
+      "4",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "hazard-queue",
+      "threads": 4,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.118554334,
+      "operations": 800000,
+      "operations_per_second": 6747960.81263,
+      "checksum": 80000200000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 126525
+  },
+  "hazard-queue-8": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "hazard-queue",
+      "--threads",
+      "8",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "hazard-queue",
+      "threads": 8,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.347838667,
+      "operations": 1600000,
+      "operations_per_second": 4599833.63494,
+      "checksum": 320000400000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 100000
+  },
+  "mutex-stack-1": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "mutex-stack",
+      "--threads",
+      "1",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "mutex-stack",
+      "threads": 1,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.0005855,
+      "operations": 200000,
+      "operations_per_second": 341588385.995,
+      "checksum": 5000050000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 25619129
+  },
+  "mutex-stack-4": {
+    "command": [
+      "/build/sync-bench/sync/sync_bench",
+      "--kind",
+      "mutex-stack",
+      "--threads",
+      "4",
+      "--iterations",
+      "100000"
+    ],
+    "probe": {
+      "kind": "mutex-stack",
+      "threads": 4,
+      "iterations_per_thread": 100000,
+      "warmup_per_thread": 2000,
+      "capacity": 8192,
+      "seconds": 0.012019666,
+      "operations": 800000,
+      "operations_per_second": 66557589.8698,
+      "checksum": 80000200000,
+      "retries": 0,
+      "validated": true
+    },
+    "iterations": 1247955
+  }
+}

@@ -1,4 +1,4 @@
-.PHONY: dev test image bench sched-bench vm-bench vm-lackey fs-evidence repro
+.PHONY: dev test image bench sched-bench vm-bench vm-lackey fs-evidence sync-bench repro
 DEV_IMAGE := os-subsystems-dev:local
 RUNTIME_IMAGE := os-subsystems:local
 dev:
@@ -25,3 +25,6 @@ vm-lackey: dev
 fs-evidence: dev
 	mkdir -p results
 	docker run --rm --cpus=4 --memory=4g --security-opt apparmor=unconfined --device /dev/fuse --cap-add SYS_ADMIN -e OS_FS_TEST_FUSE=1 -v "$(CURDIR):/checkout:ro" -v "$(CURDIR)/results:/src/results" $(DEV_IMAGE) sh /checkout/scripts/container.sh python3 scripts/fs_evidence.py
+sync-bench: dev
+	mkdir -p results
+	docker run --rm --cpus=4 --memory=4g -v "$(CURDIR):/checkout:ro" -v "$(CURDIR)/results:/src/results" $(DEV_IMAGE) sh /checkout/scripts/container.sh python3 scripts/sync_bench.py

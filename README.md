@@ -13,7 +13,7 @@ flowchart LR
   Docker --> Sched[Scheduler simulator]
   Docker --> VM[Demand paging]
   Docker --> FS[Inode file system]
-  Docker -. planned .-> Sync[Synchronization]
+  Docker --> Sync[Synchronization]
   RPC -. planned .-> Bench[Profiling studies]
   Sched -. planned .-> Bench
 ```
@@ -27,7 +27,8 @@ flowchart LR
 | Scheduler simulator | Implemented and tested | Saved simulation results below |
 | Demand paging | Implemented and tested | Synthetic and captured-trace results below |
 | Inode file system | Implemented and tested, including a FUSE mount | Structural checks and crash results below |
-| Synchronization and profiling case studies | In progress | Not measured |
+| Synchronization primitives | Implemented and tested | Contention results below; race and deadlock reproductions remain open |
+| Profiling case studies | In progress | Baseline collection |
 
 ## Measured results
 
@@ -132,6 +133,30 @@ They did not simulate power loss. Source: [saved file-system cases](results/2026
 and [mounted results](results/20261013T230437Z-fs/fuse-cases.json).
 See [the format, limits, and commands](docs/filesystem-design.md).
 
+### Synchronization
+
+The table gives median throughput across three runs, in millions of operations
+per second. One container operation is one push or pop. One mutex operation is
+one protected increment. Compare implementations within each pair. Containers
+have 8,192 slots. Each worker alternates a push and a pop.
+
+| Implementation | 1 thread | 2 threads | 4 threads | 8 threads |
+| --- | --- | --- | --- | --- |
+| `std::mutex` counter | 218.150 | 47.478 | 43.205 | 36.625 |
+| Futex mutex counter | 360.782 | 89.982 | 82.339 | 52.154 |
+| Stack with futex mutex | 227.251 | 42.847 | 43.210 | 38.351 |
+| Tagged Treiber stack | 175.954 | 37.021 | 10.509 | 6.759 |
+| Queue with futex mutex | 206.463 | 30.503 | 36.846 | 36.994 |
+| Michael–Scott queue with hazard pointers | 37.067 | 14.678 | 6.339 | 3.034 |
+
+Each case uses a saved calibration to select its iteration count. Measured runs
+lasted 0.009842–0.651309 seconds. All 72 runs checked their output values. The
+lock-free containers were slower than the mutex containers in this workload.
+The queue includes the cost of safe node reuse. These results do not establish
+throughput for other workloads or machines. Source: [contention results](results/20261013T231503Z-sync/sync.json)
+and [calibration](results/20261013T231503Z-sync/calibration.json).
+See [ordering, memory reuse, test scope, and open evidence gaps](docs/concurrency.md).
+
 ### Initial container baseline and validation
 
 | Check | Observed result | Evidence |
@@ -144,6 +169,7 @@ See [the format, limits, and commands](docs/filesystem-design.md).
 | Normal, ASan, UBSan, and TSan tests | All 16 test runs passed | [Validation record](results/validation/summary.json) |
 | Tests after demand paging was added | All 20 test runs passed | [M2 test log](results/validation/m2-sanitizers.log) |
 | Tests after the file system was added | All 32 test runs passed, including mounted FUSE in all four builds | [M3 test log](results/validation/m3-sanitizers.log) |
+| Tests after synchronization was added | All 36 test runs passed | [M4 test log](results/validation/m4-sanitizers.log) |
 
 The image and binary measurements above cover the M7/M5/M1 checkpoint. The
 image measurements count different data. Uncompressed archive bytes include
@@ -241,6 +267,12 @@ check also need Python 3 on the host.
 
    ```sh
    make fs-evidence
+   ```
+
+8. Run the contention measurements.
+
+   ```sh
+   make sync-bench
    ```
 
 ## Design and evidence

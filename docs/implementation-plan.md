@@ -30,8 +30,9 @@ are references, not implementation sources.
   open-loop overload behavior; do not generalize loopback results to networks.
 - Scheduler time is simulated microseconds. Report it separately from wall
   time. Fairness must have a defined observation window and normalization.
-- Image size means Docker's uncompressed image size in bytes. It is not registry
-  transfer size. Compare binary hashes from two clean builds before claiming
+- Record uncompressed layer archive bytes, compressed layer bytes, and Docker's
+  local image disk-usage report separately. They are different measurements.
+  Compare binary hashes from two clean builds before claiming
   repeatable binary output; do not imply an image is bit-for-bit reproducible.
 
 ## Concept references

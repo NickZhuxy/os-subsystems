@@ -23,4 +23,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: make image
-      - run: docker run --rm os-subsystems:local
+      - run: docker run --rm -v "$PWD/scripts/runtime-smoke.sh:/smoke.sh:ro" os-subsystems:local sh /smoke.sh
+      - run: python3 scripts/image_evidence.py

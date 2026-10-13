@@ -24,3 +24,5 @@
 !sync/**
 !bench/
 !bench/**
+**/__pycache__
+**/*.pyc

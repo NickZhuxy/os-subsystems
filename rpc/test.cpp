@@ -161,6 +161,16 @@ void backpressure_and_limits() {
     Peer many(limited.server.port());
     for (std::uint64_t i = 1; i <= 3; ++i) many.send(encode({Type::request, i, delayed_echo_request(100, {})}));
     many.closed(); limited.finish();
+    options.max_inflight = 256; options.max_buffer = 128;
+    Running buffer_limited(options);
+    Peer overflowing(buffer_limited.server.port());
+    Bytes combined;
+    for (std::uint64_t i = 1; i <= 2; ++i) {
+        auto frame = encode({Type::request, i, delayed_echo_request(100, Bytes(80, 42))});
+        combined.insert(combined.end(), frame.begin(), frame.end());
+    }
+    overflowing.send(combined); overflowing.closed(); buffer_limited.finish();
+    options.max_buffer = 4 * 1024 * 1024;
     options.max_connections = 1;
     Running capped(options);
     Peer first(capped.server.port()); first.send(encode({Type::request, 1, echo_request({})}));

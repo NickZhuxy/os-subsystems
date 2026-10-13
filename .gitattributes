@@ -1,0 +1,3 @@
+* text=auto
+# Preserve terminal logs, including carriage-return progress output.
+results/**/*.log -text whitespace=-blank-at-eol

@@ -1,0 +1,41 @@
+-rw-r--r-- 1 root root 2.1G Oct 13 22:38 /build/lackey/lackey.log
+74 /usr/bin/valgrind.bin --tool=lackey --trace-mem=yes --basic-counts=no --error-exitcode=99 --log-file=/build/lackey/lackey.log /build/lackey/vm/vm_trace_workload
+75 sh -c ls -lh /build/lackey/lackey.log; pgrep -af vm_trace_workload; tail -n 8 /build/lackey/lackey.log; timeout 10 gdb -q -batch -ex "target remote | vgdb" -ex "bt" -ex "x/8i \$pc-16" -ex "detach" /build/lackey/vm/vm_trace_workload
+I  0401d774,4
+I  0401d768,4
+ L 04040f48,4
+I  0401d76c,4
+I  0401d770,4
+ S 04040f48,4
+I  0401d774,4
+I  relaying data between gdb and process 74
+warning: remote target does not support file transfer, attempting to access files from local filesystem.
+warning: File "/usr/libexec/valgrind/valgrind-monitor.py" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load".
+To enable execution of this file add
+	add-auto-load-safe-path /usr/libexec/valgrind/valgrind-monitor.py
+line to your configuration file "/root/.config/gdb/gdbinit".
+To completely disable this security protection add
+	set auto-load safe-path /
+line to your configuration file "/root/.config/gdb/gdbinit".
+For more information about this security protection see the
+"Auto-loading safe path" section in the GDB manual.  E.g., run from the shell:
+	info "(gdb)Auto-loading safe path"
+0x000000000401d768 in __aarch64_ldadd4_relax () from /lib/ld-linux-aarch64.so.1
+#0  0x000000000401d768 in __aarch64_ldadd4_relax () from /lib/ld-linux-aarch64.so.1
+#1  0x000000000400fb94 in _dl_tls_allocate_begin () at ./elf/dl-tls.c:91
+#2  _dl_allocate_tls_storage () at ./elf/dl-tls.c:514
+#3  0x000000000401698c in init_tls (naudit=0) at ./elf/rtld.c:769
+#4  0x0000000004019700 in dl_main (phdr=<optimized out>, phnum=<optimized out>, user_entry=<optimized out>, auxv=<optimized out>) at ./elf/rtld.c:2024
+#5  0x0000000004015f68 in _dl_sysdep_start (start_argptr=start_argptr@entry=0x1fff000c70, dl_main=dl_main@entry=0x4017628 <dl_main>) at ../sysdeps/unix/sysv/linux/dl-sysdep.c:141
+#6  0x0000000004017348 in _dl_start_final (arg=0x1fff000c70) at ./elf/rtld.c:496
+#7  _dl_start (arg=0x1fff000c70) at ./elf/rtld.c:581
+#8  0x000000000401b2d4 in _start () at ../sysdeps/aarch64/dl-start.S:32
+   0x401d758 <__aarch64_ldadd4_relax+8>:	cbz	w16, 0x401d764 <__aarch64_ldadd4_relax+20>
+   0x401d75c <__aarch64_ldadd4_relax+12>:	ldadd	w0, w0, [x1]
+   0x401d760 <__aarch64_ldadd4_relax+16>:	ret
+   0x401d764 <__aarch64_ldadd4_relax+20>:	mov	w16, w0
+=> 0x401d768 <__aarch64_ldadd4_relax+24>:	ldxr	w0, [x1]
+   0x401d76c <__aarch64_ldadd4_relax+28>:	add	w17, w0, w16
+   0x401d770 <__aarch64_ldadd4_relax+32>:	stxr	w15, w17, [x1]
+   0x401d774 <__aarch64_ldadd4_relax+36>:	cbnz	w15, 0x401d768 <__aarch64_ldadd4_relax+24>
+[Inferior 1 (Remote target) detached]

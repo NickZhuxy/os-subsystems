@@ -1,4 +1,4 @@
-.PHONY: dev test image bench sched-bench repro
+.PHONY: dev test image bench sched-bench vm-bench vm-lackey repro
 DEV_IMAGE := os-subsystems-dev:local
 RUNTIME_IMAGE := os-subsystems:local
 dev:
@@ -16,3 +16,9 @@ sched-bench: dev
 repro: dev
 	mkdir -p results/m7
 	docker run --rm --cpus=4 --memory=4g -v "$(CURDIR):/checkout:ro" -v "$(CURDIR)/results:/src/results" $(DEV_IMAGE) sh /checkout/scripts/container.sh sh scripts/repro.sh
+vm-bench: dev
+	mkdir -p results
+	docker run --rm --cpus=4 --memory=4g -v "$(CURDIR):/checkout:ro" -v "$(CURDIR)/results:/src/results" $(DEV_IMAGE) sh /checkout/scripts/container.sh python3 scripts/vm_bench.py
+vm-lackey: dev
+	mkdir -p results
+	docker run --rm --cpus=4 --memory=4g -v "$(CURDIR):/checkout:ro" -v "$(CURDIR)/results:/src/results" $(DEV_IMAGE) sh /checkout/scripts/container.sh python3 scripts/vm_lackey.py

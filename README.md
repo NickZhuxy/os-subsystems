@@ -25,7 +25,8 @@ flowchart LR
 | Docker and continuous integration (CI) | Local build and tests pass; GitHub CI has not run | Image and binary measurements below |
 | Remote procedure call (RPC) service | Implemented and tested | Saved loopback measurements below |
 | Scheduler simulator | Implemented and tested | Saved simulation results below |
-| Virtual memory, file system, synchronization, profiling | Planned | Not measured |
+| Demand paging | Implemented and tested | Synthetic and captured-trace results below |
+| File system, synchronization, profiling case studies | Planned | Not measured |
 
 ## Measured results
 
@@ -86,7 +87,29 @@ Source: [scheduler results, inputs, and timelines](results/20261013T221310Z-sche
 See [policy rules and metric definitions](docs/schedulers.md). CFS models the
 historical vruntime design. It does not reproduce the current Linux scheduler.
 
-### Container and validation
+### Demand paging
+
+Each synthetic case has 65,536 accesses and a 16-entry TLB. All three policies
+produced 64 faults on the looping trace when the 64-page working set fit in
+64 frames. FIFO's 12-access anomaly trace produced 9 faults with 3 frames and
+10 faults with 4 frames. Source: [synthetic paging results](results/20261013T223244Z-vm/vm.json).
+
+The captured trace has 657,610 modeled page touches across 321 pages. It includes
+startup and shutdown of the original trace program. Each policy ran once per
+frame count. The table shows fault counts and TLB hit rates.
+
+| Frames | FIFO faults | Clock faults | Aging faults | FIFO TLB hits | Clock TLB hits | Aging TLB hits |
+| --- | --- | --- | --- | --- | --- | --- |
+| 16 | 57,967 | 50,591 | 44,512 | 91.185% | 92.307% | 93.231% |
+| 64 | 2,087 | 1,401 | 30,826 | 92.452% | 92.462% | 92.816% |
+| 128 | 672 | 509 | 20,262 | 92.460% | 92.462% | 92.446% |
+
+Aging is an LRU approximation with a fixed sampling period. It did not give the
+fewest faults at every memory size. Source: [captured-trace results](results/20261013T223954Z-lackey/vm.json).
+An [independent reference check](results/validation/vm-reference-check.log) passed
+all 38 synthetic and captured-trace cases. See [VM design and trace limits](docs/virtual-memory.md).
+
+### Initial container baseline and validation
 
 | Check | Observed result | Evidence |
 | --- | --- | --- |
@@ -96,8 +119,10 @@ historical vruntime design. It does not reproduce the current Linux scheduler.
 | Two clean Release builds | Identical hashes for all four installed programs | [Build A](results/m7/binaries-a.sha256), [build B](results/m7/binaries-b.sha256) |
 | Runtime image programs | Same hashes as both clean builds | [Runtime hashes](results/m7/runtime-binaries.sha256) |
 | Normal, ASan, UBSan, and TSan tests | All 16 test runs passed | [Validation record](results/validation/summary.json) |
+| Tests after demand paging was added | All 20 test runs passed | [M2 test log](results/validation/m2-sanitizers.log) |
 
-The image measurements count different data. Uncompressed archive bytes include
+The image and binary measurements above cover the M7/M5/M1 checkpoint. The
+image measurements count different data. Uncompressed archive bytes include
 tar headers and padding. Local disk use includes compressed data and unpacked
 files. Docker Engine 29.7.2 reports a smaller value through `image inspect` on
 this store. See the [Docker size notes](docs/container-evidence.md). The binary
@@ -175,6 +200,14 @@ check also need Python 3 on the host.
 
    ```sh
    python3 scripts/check_results.py
+   ```
+
+6. Run the paging experiments and check their saved counters.
+
+   ```sh
+   make vm-bench
+   make vm-lackey
+   python3 scripts/check_vm_results.py
    ```
 
 ## Design and evidence

@@ -1,0 +1,20 @@
+COMMAND ['cmake', '-S', '/src', '-B', '/build/lackey', '-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_TESTING=OFF']
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/lackey
+COMMAND ['cmake', '--build', '/build/lackey', '--target', 'vm_bench', 'vm_trace_workload', '--parallel', '4']
+[1/6] Building CXX object vm/CMakeFiles/vm_trace_workload.dir/trace_workload.cpp.o
+[2/6] Linking CXX executable vm/vm_trace_workload
+[3/6] Building CXX object vm/CMakeFiles/os_vm.dir/vm.cpp.o
+[4/6] Linking CXX static library vm/libos_vm.a
+[5/6] Building CXX object vm/CMakeFiles/vm_bench.dir/main.cpp.o
+[6/6] Linking CXX executable vm/vm_bench

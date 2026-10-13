@@ -11,8 +11,8 @@ No course lab code is copied or adapted.
 flowchart LR
   Docker[Docker and CI] --> RPC[epoll RPC]
   Docker --> Sched[Scheduler simulator]
-  Docker -. planned .-> VM[Demand paging]
-  Docker -. planned .-> FS[Inode file system]
+  Docker --> VM[Demand paging]
+  Docker --> FS[Inode file system]
   Docker -. planned .-> Sync[Synchronization]
   RPC -. planned .-> Bench[Profiling studies]
   Sched -. planned .-> Bench
@@ -26,7 +26,8 @@ flowchart LR
 | Remote procedure call (RPC) service | Implemented and tested | Saved loopback measurements below |
 | Scheduler simulator | Implemented and tested | Saved simulation results below |
 | Demand paging | Implemented and tested | Synthetic and captured-trace results below |
-| File system, synchronization, profiling case studies | Planned | Not measured |
+| Inode file system | Implemented and tested, including a FUSE mount | Structural checks and crash results below |
+| Synchronization and profiling case studies | In progress | Not measured |
 
 ## Measured results
 
@@ -109,6 +110,28 @@ fewest faults at every memory size. Source: [captured-trace results](results/202
 An [independent reference check](results/validation/vm-reference-check.log) passed
 all 38 synthetic and captured-trace cases. See [VM design and trace limits](docs/virtual-memory.md).
 
+### File system
+
+The file system uses an original disk format. It has inode and block bitmaps,
+directories, hard links, sparse files, and direct and indirect block pointers.
+The FUSE interface mounts an image on Linux.
+
+| Check | Observed result |
+| --- | --- |
+| File data compared with a separate byte model | 500 operations passed |
+| CLI file transfer across double-indirect blocks | 5,120,000 bytes matched |
+| Concurrent FUSE file transfers | 48 round trips of 16,384 bytes, 4 workers |
+| Structure after the mounted workload | 53 allocated and reachable inodes; 197 referenced data blocks; no findings |
+| Six modified images | The checker detected all six corruption cases |
+| Writer killed after an allocation bitmap write | The checker found allocated blocks without references |
+| Writer killed after a data block overwrite | 4,096 new bytes and 4,096 old bytes; the structure check passed |
+
+The file system has no journal. A clean structure check does not prove that an
+interrupted data write was atomic. These tests used SIGKILL at controlled points.
+They did not simulate power loss. Source: [saved file-system cases](results/20261013T230437Z-fs/process-cases.json)
+and [mounted results](results/20261013T230437Z-fs/fuse-cases.json).
+See [the format, limits, and commands](docs/filesystem-design.md).
+
 ### Initial container baseline and validation
 
 | Check | Observed result | Evidence |
@@ -120,6 +143,7 @@ all 38 synthetic and captured-trace cases. See [VM design and trace limits](docs
 | Runtime image programs | Same hashes as both clean builds | [Runtime hashes](results/m7/runtime-binaries.sha256) |
 | Normal, ASan, UBSan, and TSan tests | All 16 test runs passed | [Validation record](results/validation/summary.json) |
 | Tests after demand paging was added | All 20 test runs passed | [M2 test log](results/validation/m2-sanitizers.log) |
+| Tests after the file system was added | All 32 test runs passed, including mounted FUSE in all four builds | [M3 test log](results/validation/m3-sanitizers.log) |
 
 The image and binary measurements above cover the M7/M5/M1 checkpoint. The
 image measurements count different data. Uncompressed archive bytes include
@@ -132,7 +156,8 @@ CPU architectures. GitHub CI remains unverified.
 ## Build and test
 
 Prerequisites: Docker with a Linux engine, Make, and an internet connection for
-the first build. Use a Linux ARM64 or AMD64 host. On macOS, use Docker Desktop.
+the first build. The Linux engine must provide `/dev/fuse`. Use a Linux ARM64 or
+AMD64 host. On macOS, use Docker Desktop.
 
 1. Build the development image.
 
@@ -156,7 +181,9 @@ the first build. Use a Linux ARM64 or AMD64 host. On macOS, use Docker Desktop.
 AddressSanitizer (ASan), UndefinedBehaviorSanitizer (UBSan), and ThreadSanitizer
 (TSan) use separate builds. A failed test stops the command. The test container
 uses an unrestricted seccomp profile so TSan can set its address layout. The
-runtime container uses Docker's default profile and a non-root user.
+test container also has FUSE mount access through `/dev/fuse` and `SYS_ADMIN`.
+Its AppArmor profile is unrestricted. The runtime container uses Docker's default
+profile and a non-root user. Mounting an image needs separate FUSE device access.
 
 The base image has a fixed digest. Package sources use a dated Debian snapshot.
 See [the Dockerfile](docker/Dockerfile) for these values. The runtime image holds
@@ -208,6 +235,12 @@ check also need Python 3 on the host.
    make vm-bench
    make vm-lackey
    python3 scripts/check_vm_results.py
+   ```
+
+7. Save the file-system tests and crash images.
+
+   ```sh
+   make fs-evidence
    ```
 
 ## Design and evidence

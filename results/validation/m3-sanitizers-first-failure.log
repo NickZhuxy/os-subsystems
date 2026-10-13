@@ -1,0 +1,339 @@
+docker build --target dev -f docker/Dockerfile -t os-subsystems-dev:local .
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.55kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 ...
+
+#3 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.5s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#4 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e done
+#4 CACHED
+
+#5 [internal] load metadata for docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#5 DONE 0.2s
+
+#6 [auth] library/debian:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 289B done
+#7 DONE 0.0s
+
+#8 [base 1/2] FROM docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#8 resolve docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f done
+#8 DONE 0.0s
+
+#9 [base 2/2] RUN rm -f /etc/apt/sources.list.d/debian.sources &&     printf 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/%s/ trixie main\ndeb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/%s/ trixie-security main\n' "20261013T000000Z" "20261013T000000Z" > /etc/apt/sources.list
+#9 CACHED
+
+#10 [dev 1/3] RUN apt-get update && apt-get install -y --no-install-recommends     clang cmake ninja-build make python3 gdb valgrind linux-perf     libfuse3-dev fuse3 pkg-config ca-certificates &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [dev 2/3] RUN apt-get update && apt-get install -y --no-install-recommends libclang-rt-19-dev &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#11 CACHED
+
+#12 [dev 3/3] WORKDIR /src
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers done
+#13 exporting manifest sha256:8517927f03ca0bc7eb271ed219f5a368ac4768511a0f32d16da5cef741a8ff65 done
+#13 exporting config sha256:ba862f68336a488b2dd62ad988c943201986561b8678a52e0beb96e3654fe4fb done
+#13 exporting attestation manifest sha256:037fc27db2036cc14565755ea99ef58d832f6368cdd36a8e79c0d96b494133ba done
+#13 exporting manifest list sha256:1a69ff1d85d4e6e8b476e4994588fccba783f59964f4e4e7f1554972c1e7d34f done
+#13 naming to docker.io/library/os-subsystems-dev:local done
+#13 unpacking to docker.io/library/os-subsystems-dev:local done
+#13 DONE 0.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/ammux2prb7ld97uvashd9zfls
+docker run --rm --cpus=4 --memory=4g --security-opt seccomp=unconfined --security-opt apparmor=unconfined --device /dev/fuse --cap-add SYS_ADMIN -e OS_FS_TEST_FUSE=1 --ulimit nofile=65536:65536 -v "/Users/nickzhu/Desktop/Projects/os-subsystems:/checkout:ro" os-subsystems-dev:local sh /checkout/scripts/container.sh sh scripts/test.sh
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'fuse3'
+--   Found fuse3, version 3.17.2
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/none
+[1/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[2/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[3/42] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[4/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[5/42] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+[6/42] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[7/42] Building CXX object vm/CMakeFiles/os_vm.dir/vm.cpp.o
+[8/42] Linking CXX static library rpc/libos_rpc.a
+[9/42] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[10/42] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+[11/42] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+[12/42] Linking CXX static library sched/libos_sched.a
+[13/42] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[14/42] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[15/42] Linking CXX static library vm/libos_vm.a
+[16/42] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[17/42] Building CXX object vm/CMakeFiles/vm_trace_workload.dir/trace_workload.cpp.o
+[18/42] Building CXX object vm/CMakeFiles/vm_bench.dir/main.cpp.o
+[19/42] Linking CXX static library fs/libos_fs.a
+[20/42] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[21/42] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+[22/42] Building CXX object vm/CMakeFiles/vm_test.dir/test.cpp.o
+[23/42] Building CXX object fs/CMakeFiles/fs_mkfs.dir/mkfs_main.cpp.o
+[24/42] Building CXX object fs/CMakeFiles/fs_check.dir/check_main.cpp.o
+[25/42] Linking CXX executable os_info
+[26/42] Linking CXX executable common_test
+[27/42] Linking CXX executable rpc/rpc_server
+[28/42] Building CXX object fs/CMakeFiles/fs_cli.dir/cli_main.cpp.o
+[29/42] Building CXX object fs/CMakeFiles/fs_mount.dir/fuse_main.cpp.o
+[30/42] Linking CXX executable rpc/rpc_bench
+[31/42] Linking CXX executable rpc/rpc_test
+[32/42] Linking CXX executable sched/sched_bench
+[33/42] Linking CXX executable sched/sched_test
+[34/42] Linking CXX executable vm/vm_bench
+[35/42] Linking CXX executable vm/vm_trace_workload
+[36/42] Linking CXX executable vm/vm_test
+[37/42] Linking CXX executable fs/fs_mkfs
+[38/42] Linking CXX executable fs/fs_check
+[39/42] Linking CXX executable fs/fs_cli
+[40/42] Linking CXX executable fs/fs_mount
+[41/42] Building CXX object fs/CMakeFiles/fs_test.dir/test.cpp.o
+[42/42] Linking CXX executable fs/fs_test
+Internal ctest changing into directory: /build/none
+Test project /build/none
+    Start 1: common
+1/8 Test #1: common ...........................   Passed    0.00 sec
+    Start 2: rpc
+2/8 Test #2: rpc ..............................   Passed    0.73 sec
+    Start 3: rpc_cli
+3/8 Test #3: rpc_cli ..........................   Passed    0.05 sec
+    Start 4: scheduler
+4/8 Test #4: scheduler ........................   Passed    0.05 sec
+    Start 5: vm
+5/8 Test #5: vm ...............................   Passed    0.01 sec
+    Start 6: fs
+6/8 Test #6: fs ...............................   Passed    0.34 sec
+    Start 7: fs_process
+7/8 Test #7: fs_process .......................   Passed    0.16 sec
+    Start 8: fs_fuse
+8/8 Test #8: fs_fuse ..........................   Passed    0.15 sec
+
+100% tests passed, 0 tests failed out of 8
+
+Total Test time (real) =   1.48 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'fuse3'
+--   Found fuse3, version 3.17.2
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/address
+[1/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[2/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[3/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[4/42] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[5/42] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+[6/42] Building CXX object vm/CMakeFiles/os_vm.dir/vm.cpp.o
+[7/42] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[8/42] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[9/42] Linking CXX static library rpc/libos_rpc.a
+[10/42] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[11/42] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[12/42] Linking CXX static library sched/libos_sched.a
+[13/42] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+[14/42] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+[15/42] Linking CXX static library vm/libos_vm.a
+[16/42] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[17/42] Building CXX object vm/CMakeFiles/vm_trace_workload.dir/trace_workload.cpp.o
+[18/42] Building CXX object vm/CMakeFiles/vm_bench.dir/main.cpp.o
+[19/42] Linking CXX static library fs/libos_fs.a
+[20/42] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[21/42] Building CXX object vm/CMakeFiles/vm_test.dir/test.cpp.o
+[22/42] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+[23/42] Building CXX object fs/CMakeFiles/fs_mkfs.dir/mkfs_main.cpp.o
+[24/42] Building CXX object fs/CMakeFiles/fs_check.dir/check_main.cpp.o
+[25/42] Linking CXX executable os_info
+[26/42] Building CXX object fs/CMakeFiles/fs_cli.dir/cli_main.cpp.o
+[27/42] Linking CXX executable common_test
+[28/42] Linking CXX executable rpc/rpc_server
+[29/42] Building CXX object fs/CMakeFiles/fs_mount.dir/fuse_main.cpp.o
+[30/42] Linking CXX executable rpc/rpc_bench
+[31/42] Linking CXX executable rpc/rpc_test
+[32/42] Linking CXX executable sched/sched_bench
+[33/42] Linking CXX executable sched/sched_test
+[34/42] Linking CXX executable vm/vm_bench
+[35/42] Linking CXX executable vm/vm_trace_workload
+[36/42] Linking CXX executable vm/vm_test
+[37/42] Linking CXX executable fs/fs_mkfs
+[38/42] Linking CXX executable fs/fs_check
+[39/42] Linking CXX executable fs/fs_cli
+[40/42] Linking CXX executable fs/fs_mount
+[41/42] Building CXX object fs/CMakeFiles/fs_test.dir/test.cpp.o
+[42/42] Linking CXX executable fs/fs_test
+Internal ctest changing into directory: /build/address
+Test project /build/address
+    Start 1: common
+1/8 Test #1: common ...........................   Passed    0.01 sec
+    Start 2: rpc
+2/8 Test #2: rpc ..............................   Passed    0.74 sec
+    Start 3: rpc_cli
+3/8 Test #3: rpc_cli ..........................   Passed    0.06 sec
+    Start 4: scheduler
+4/8 Test #4: scheduler ........................   Passed    0.09 sec
+    Start 5: vm
+5/8 Test #5: vm ...............................   Passed    0.02 sec
+    Start 6: fs
+6/8 Test #6: fs ...............................   Passed    0.95 sec
+    Start 7: fs_process
+7/8 Test #7: fs_process .......................   Passed    0.33 sec
+    Start 8: fs_fuse
+8/8 Test #8: fs_fuse ..........................   Passed    0.17 sec
+
+100% tests passed, 0 tests failed out of 8
+
+Total Test time (real) =   2.37 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'fuse3'
+--   Found fuse3, version 3.17.2
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/undefined
+[1/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[2/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[3/42] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[4/42] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[5/42] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+[6/42] Building CXX object vm/CMakeFiles/os_vm.dir/vm.cpp.o
+[7/42] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[8/42] Linking CXX static library rpc/libos_rpc.a
+[9/42] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[10/42] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[11/42] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+[12/42] Linking CXX static library sched/libos_sched.a
+[13/42] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[14/42] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+[15/42] Linking CXX static library vm/libos_vm.a
+[16/42] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[17/42] Building CXX object vm/CMakeFiles/vm_trace_workload.dir/trace_workload.cpp.o
+[18/42] Building CXX object vm/CMakeFiles/vm_bench.dir/main.cpp.o
+[19/42] Linking CXX static library fs/libos_fs.a
+[20/42] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[21/42] Building CXX object vm/CMakeFiles/vm_test.dir/test.cpp.o
+[22/42] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+[23/42] Building CXX object fs/CMakeFiles/fs_mkfs.dir/mkfs_main.cpp.o
+[24/42] Building CXX object fs/CMakeFiles/fs_check.dir/check_main.cpp.o
+[25/42] Linking CXX executable os_info
+[26/42] Linking CXX executable common_test
+[27/42] Linking CXX executable rpc/rpc_server
+[28/42] Building CXX object fs/CMakeFiles/fs_mount.dir/fuse_main.cpp.o
+[29/42] Building CXX object fs/CMakeFiles/fs_cli.dir/cli_main.cpp.o
+[30/42] Linking CXX executable rpc/rpc_bench
+[31/42] Linking CXX executable rpc/rpc_test
+[32/42] Linking CXX executable sched/sched_test
+[33/42] Linking CXX executable sched/sched_bench
+[34/42] Linking CXX executable vm/vm_bench
+[35/42] Linking CXX executable vm/vm_trace_workload
+[36/42] Linking CXX executable vm/vm_test
+[37/42] Linking CXX executable fs/fs_mkfs
+[38/42] Linking CXX executable fs/fs_check
+[39/42] Linking CXX executable fs/fs_cli
+[40/42] Linking CXX executable fs/fs_mount
+[41/42] Building CXX object fs/CMakeFiles/fs_test.dir/test.cpp.o
+[42/42] Linking CXX executable fs/fs_test
+Internal ctest changing into directory: /build/undefined
+Test project /build/undefined
+    Start 1: common
+1/8 Test #1: common ...........................   Passed    0.00 sec
+    Start 2: rpc
+2/8 Test #2: rpc ..............................   Passed    0.69 sec
+    Start 3: rpc_cli
+3/8 Test #3: rpc_cli ..........................   Passed    0.05 sec
+    Start 4: scheduler
+4/8 Test #4: scheduler ........................   Passed    0.10 sec
+    Start 5: vm
+5/8 Test #5: vm ...............................   Passed    0.01 sec
+    Start 6: fs
+6/8 Test #6: fs ...............................   Passed    0.40 sec
+    Start 7: fs_process
+7/8 Test #7: fs_process .......................   Passed    0.19 sec
+    Start 8: fs_fuse
+8/8 Test #8: fs_fuse ..........................***Failed    0.10 sec
+Traceback (most recent call last):
+  File "/src/tests/fs_fuse_test.py", line 64, in run_cases
+    assert old.read_bytes() == b"new"
+           ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 626, in read_bytes
+    return f.read()
+           ~~~~~~^^
+ConnectionAbortedError: [Errno 103] Software caused connection abort
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/src/tests/fs_fuse_test.py", line 126, in <module>
+    result = run_cases(args.build)
+  File "/src/tests/fs_fuse_test.py", line 15, in run_cases
+    with tempfile.TemporaryDirectory(prefix="os-fs-fuse-") as temporary:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/tempfile.py", line 1141, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/tempfile.py", line 1145, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/tempfile.py", line 1125, in _rmtree
+    _rmtree(name, onexc=onexc)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/shutil.py", line 763, in rmtree
+    _rmtree_safe_fd(stack, onexc)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/shutil.py", line 707, in _rmtree_safe_fd
+    onexc(func, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/shutil.py", line 667, in _rmtree_safe_fd
+    orig_st = orig_entry.stat(follow_symlinks=False)
+OSError: [Errno 107] Transport endpoint is not connected: '/tmp/os-fs-fuse-6ykax9i1/mount'
+
+
+88% tests passed, 1 tests failed out of 8
+
+Total Test time (real) =   1.54 sec
+
+The following tests FAILED:
+	  8 - fs_fuse (Failed)
+Errors while running CTest
+make: *** [test] Error 8

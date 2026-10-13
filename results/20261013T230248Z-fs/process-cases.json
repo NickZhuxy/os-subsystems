@@ -1,0 +1,44 @@
+[
+  {
+    "case": "cli_double_indirect_roundtrip",
+    "bytes": 5120000,
+    "sha256": "13fbe33cdd58fa5b9025c6eebae5b36b2d822086ad9a93a82a2ec18bb7d0531a",
+    "fsck": {
+      "clean": true,
+      "allocated_inodes": 3,
+      "reachable_inodes": 3,
+      "referenced_data_blocks": 1255,
+      "issues": []
+    }
+  },
+  {
+    "case": "bitmap-written",
+    "writer_exit": -9,
+    "marker": "CRASH_POINT bitmap-written",
+    "fsck": {
+      "clean": false,
+      "allocated_inodes": 2,
+      "reachable_inodes": 2,
+      "referenced_data_blocks": 1,
+      "issues": [
+        "allocated block is unreferenced: 12",
+        "allocated block is unreferenced: 13"
+      ]
+    },
+    "image_sha256": "68389b5fca80b23d8f2036b219efd2c1f1d9e16a84e2d23b2bedcc2f7da1ce0f"
+  },
+  {
+    "case": "data-written",
+    "writer_exit": -9,
+    "marker": "CRASH_POINT data-written",
+    "fsck": {
+      "clean": true,
+      "allocated_inodes": 2,
+      "reachable_inodes": 2,
+      "referenced_data_blocks": 3,
+      "issues": []
+    },
+    "observed_data": "4096 new B bytes followed by 4096 old A bytes; structure clean, write not atomic",
+    "image_sha256": "43404817111fae5d5f3bfdb0406149c4a75292cfcabad8db8d1f74d8fa519d05"
+  }
+]

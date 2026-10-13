@@ -16,6 +16,7 @@ jobs:
       - name: Build and test
         run: >-
           docker run --rm --security-opt seccomp=unconfined
+          --security-opt apparmor=unconfined --device /dev/fuse --cap-add SYS_ADMIN -e OS_FS_TEST_FUSE=1
           --cpus=4 --memory=4g --ulimit nofile=65536:65536 -v "$PWD:/checkout:ro"
           os-subsystems-dev:local sh /checkout/scripts/container.sh sh scripts/test.sh ${{ matrix.sanitizer }}
   runtime:

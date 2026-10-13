@@ -24,7 +24,7 @@ RUN cmake -S . -B /build -G Ninja -DCMAKE_BUILD_TYPE=Release && \
     cmake --install /build --prefix /install --strip
 
 FROM base AS runtime
-RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 && \
+RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 libfuse3-4 fuse3 && \
     rm -rf /var/lib/apt/lists/*
 COPY --from=builder /install/bin/ /usr/local/bin/
 USER 65534:65534

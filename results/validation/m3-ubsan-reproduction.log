@@ -1,0 +1,51 @@
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'fuse3'
+--   Found fuse3, version 3.17.2
+-- Configuring done (0.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/fs
+[1/10] Building CXX object fs/CMakeFiles/fs_mkfs.dir/mkfs_main.cpp.o
+[2/10] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+[3/10] Building CXX object fs/CMakeFiles/fs_check.dir/check_main.cpp.o
+[4/10] Building CXX object fs/CMakeFiles/fs_mount.dir/fuse_main.cpp.o
+[5/10] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+[6/10] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+[7/10] Linking CXX static library fs/libos_fs.a
+[8/10] Linking CXX executable fs/fs_mkfs
+[9/10] Linking CXX executable fs/fs_mount
+[10/10] Linking CXX executable fs/fs_check
+/src/fs/fuse_main.cpp:57:82: runtime error: null pointer passed as argument 2, which is declared to never be null
+/usr/include/string.h:44:28: note: nonnull attribute specified here
+==119==WARNING: invalid path to external symbolizer!
+==119==WARNING: Failed to use and restart external symbolizer!
+    #0 0xaaaac7c4ae48  (/build/fs/fs/fs_mount+0x3ae48) (BuildId: ebee1aaa1316dcf7196c00d00687f234b2a15c49)
+    #1 0xffffb125e6c8  (/lib/aarch64-linux-gnu/libfuse3.so.4+0xe6c8) (BuildId: 9795c3c78f78f8abc993ac4ce745099723890106)
+    #2 0xffffb125e7a0  (/lib/aarch64-linux-gnu/libfuse3.so.4+0xe7a0) (BuildId: 9795c3c78f78f8abc993ac4ce745099723890106)
+    #3 0xffffb12698a4  (/lib/aarch64-linux-gnu/libfuse3.so.4+0x198a4) (BuildId: 9795c3c78f78f8abc993ac4ce745099723890106)
+    #4 0xffffb126bf54  (/lib/aarch64-linux-gnu/libfuse3.so.4+0x1bf54) (BuildId: 9795c3c78f78f8abc993ac4ce745099723890106)
+    #5 0xffffb1266c80  (/lib/aarch64-linux-gnu/libfuse3.so.4+0x16c80) (BuildId: 9795c3c78f78f8abc993ac4ce745099723890106)
+    #6 0xffffb0d861d4  (/lib/aarch64-linux-gnu/libc.so.6+0x861d4) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #7 0xffffb0dee158  (/lib/aarch64-linux-gnu/libc.so.6+0xee158) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /src/fs/fuse_main.cpp:57:82 
+
+Traceback (most recent call last):
+  File "/src/tests/fs_fuse_test.py", line 137, in <module>
+    result = run_cases(args.build)
+  File "/src/tests/fs_fuse_test.py", line 67, in run_cases
+    assert old.read_bytes() == b"new"
+           ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 626, in read_bytes
+    return f.read()
+           ~~~~~~^^
+ConnectionAbortedError: [Errno 103] Software caused connection abort

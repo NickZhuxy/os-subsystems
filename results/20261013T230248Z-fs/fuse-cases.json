@@ -1,0 +1,15 @@
+{
+  "mounted": true,
+  "workers": 4,
+  "concurrent_roundtrips": 48,
+  "roundtrip_bytes_each": 16384,
+  "functional_workload_seconds": 0.06089258298743516,
+  "fsck": {
+    "clean": true,
+    "allocated_inodes": 53,
+    "reachable_inodes": 53,
+    "referenced_data_blocks": 197,
+    "issues": []
+  },
+  "mount_log": ""
+}

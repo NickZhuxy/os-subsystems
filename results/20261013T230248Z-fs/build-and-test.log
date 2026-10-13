@@ -1,0 +1,97 @@
+COMMAND ['cmake', '-S', '/src', '-B', '/build/fs-evidence', '-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release']
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'fuse3'
+--   Found fuse3, version 3.17.2
+-- Configuring done (0.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/fs-evidence
+COMMAND ['cmake', '--build', '/build/fs-evidence', '--target', 'fs_test', 'fs_mkfs', 'fs_cli', 'fs_check', 'fs_mount', '--parallel', '4']
+[1/14] Building CXX object fs/CMakeFiles/fs_mkfs.dir/mkfs_main.cpp.o
+[2/14] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+[3/14] Building CXX object fs/CMakeFiles/fs_check.dir/check_main.cpp.o
+[4/14] Building CXX object fs/CMakeFiles/fs_cli.dir/cli_main.cpp.o
+[5/14] Building CXX object fs/CMakeFiles/fs_mount.dir/fuse_main.cpp.o
+[6/14] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+[7/14] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+[8/14] Linking CXX static library fs/libos_fs.a
+[9/14] Linking CXX executable fs/fs_mkfs
+[10/14] Linking CXX executable fs/fs_check
+[11/14] Linking CXX executable fs/fs_cli
+[12/14] Linking CXX executable fs/fs_mount
+[13/14] Building CXX object fs/CMakeFiles/fs_test.dir/test.cpp.o
+[14/14] Linking CXX executable fs/fs_test
+COMMAND ['/build/fs-evidence/fs/fs_test']
+filesystem: namespace, sparse pointers, ENOSPC rollback, 500 oracle operations, 4 threads, 6 corruptions passed
+COMMAND ['python3', 'tests/fs_process_test.py', '--build', '/build/fs-evidence/fs', '--evidence', '/src/results/20261013T230248Z-fs']
+[
+  {
+    "case": "cli_double_indirect_roundtrip",
+    "bytes": 5120000,
+    "sha256": "13fbe33cdd58fa5b9025c6eebae5b36b2d822086ad9a93a82a2ec18bb7d0531a",
+    "fsck": {
+      "clean": true,
+      "allocated_inodes": 3,
+      "reachable_inodes": 3,
+      "referenced_data_blocks": 1255,
+      "issues": []
+    }
+  },
+  {
+    "case": "bitmap-written",
+    "writer_exit": -9,
+    "marker": "CRASH_POINT bitmap-written",
+    "fsck": {
+      "clean": false,
+      "allocated_inodes": 2,
+      "reachable_inodes": 2,
+      "referenced_data_blocks": 1,
+      "issues": [
+        "allocated block is unreferenced: 12",
+        "allocated block is unreferenced: 13"
+      ]
+    },
+    "image_sha256": "68389b5fca80b23d8f2036b219efd2c1f1d9e16a84e2d23b2bedcc2f7da1ce0f"
+  },
+  {
+    "case": "data-written",
+    "writer_exit": -9,
+    "marker": "CRASH_POINT data-written",
+    "fsck": {
+      "clean": true,
+      "allocated_inodes": 2,
+      "reachable_inodes": 2,
+      "referenced_data_blocks": 3,
+      "issues": []
+    },
+    "observed_data": "4096 new B bytes followed by 4096 old A bytes; structure clean, write not atomic",
+    "image_sha256": "43404817111fae5d5f3bfdb0406149c4a75292cfcabad8db8d1f74d8fa519d05"
+  }
+]
+
+COMMAND ['python3', 'tests/fs_fuse_test.py', '--build', '/build/fs-evidence/fs', '--evidence', '/src/results/20261013T230248Z-fs']
+{
+  "mounted": true,
+  "workers": 4,
+  "concurrent_roundtrips": 48,
+  "roundtrip_bytes_each": 16384,
+  "functional_workload_seconds": 0.06089258298743516,
+  "fsck": {
+    "clean": true,
+    "allocated_inodes": 53,
+    "reachable_inodes": 53,
+    "referenced_data_blocks": 197,
+    "issues": []
+  },
+  "mount_log": ""
+}
+

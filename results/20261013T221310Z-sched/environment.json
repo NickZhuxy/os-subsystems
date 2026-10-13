@@ -1,0 +1,50 @@
+{
+  "utc": "20261013T221310Z",
+  "architecture": "aarch64",
+  "kernel": "7.0.12-linuxkit",
+  "compiler": "Debian clang version 19.1.7 (3+b1)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /usr/lib/llvm-19/bin",
+  "source_files_sha256": {
+    ".dockerignore": "9644e18b1eed14ec640d9306fc72d2fe1a99abb0968b2765a23592e34329dffa",
+    ".github/workflows/ci.yml": "8b801be100bf58bfefb5756e470720ea181544ea97f8905b1f080f08bf380b90",
+    "CMakeLists.txt": "44abf5b90b1c14e0c4405ac28e3c4fd9b3ac24b9d4192ab433d38e94ebc13a29",
+    "Makefile": "ede7fe1a07e37f938ad4a1f2a04bfb106f1b6d617975054e192c8bfa6177615a",
+    "docker/Dockerfile": "34031156eb25637411f83e397274c279076fa59eaa7e90be1ebafcdc6d2f74d3",
+    "include/os/cli.hpp": "491074888509449eb1219b16e5af001dc67fe4519c5a4a270803454968c217c9",
+    "include/os/fd.hpp": "dab3e6fa6d0c3d31cb260a1ca6709d587ca495d06249e47cd6755a62412c0d3b",
+    "include/os/test.hpp": "74ae3d3532eae1ea2cfdf85739cf0eef561a843a45c77c0adcd6ea6813e13e59",
+    "rpc/CMakeLists.txt": "da19915010b88040ac4703dc826d0b5e193e96f60e9d98ae741ee810429be74e",
+    "rpc/bench_main.cpp": "0c8d1e0abe42d226bba583c5c08f3a1d641f5ffbc1b2c0bafbaaeb2bcd73bfd4",
+    "rpc/client.cpp": "9f71070a06a806ca391882692aa52d438eea4dc284dc94c9fff5f7ec1209947b",
+    "rpc/include/os/rpc.hpp": "65df54be2c848569abffe24f067e7a4a3f9b700fdb694b933dea8bb19f86d0ca",
+    "rpc/protocol.cpp": "143efff7e796ddb1a2ba77b75741452a6697facabb3633e56986507e12f0364d",
+    "rpc/server.cpp": "a9e63108daf04a4bc5b1fa885168aa8c0f28ea9ea4696bfd23b6acf35e64d7f9",
+    "rpc/server_main.cpp": "f8033589bd5282fcaddf5315e9c7d5e5888569fa3d9495139227998d6619befc",
+    "rpc/test.cpp": "1fe733ac76fd1390737fc4ad10057eb39f5a5ed5701de70a2c14ea38e0b15345",
+    "sched/CMakeLists.txt": "8ef1f125e376ffa176aa90ea803b4df4e6014f41ef90e69e387e3bf5bdb8bc0b",
+    "sched/include/os/rbtree.hpp": "f547dc0e5e42612527eedbf6bb286badab6b4c21aa11e4409f95bb0c194a37ae",
+    "sched/include/os/scheduler.hpp": "75251bf0a6f8d470c36b82d212e5e46f60efe6f365d7a344eed04fbdcec7b3cc",
+    "sched/main.cpp": "456d9b17f4538edc62c66bef40dce6cd06711b8c2b1ebff00f8969dad20185e8",
+    "sched/scheduler.cpp": "ba1341ffa3a6e30def53051dcd3ca37ede27366b2cec0cba4dbde6e09960362e",
+    "sched/test.cpp": "1419e6507b602ff9a2ced4f3176eb98d8a9b3bb1d1f7060e1e1b2fdad7d07b2f",
+    "scripts/bench.py": "ac9ef8c2e8a971cafe3079982e92c50d913da246b6a3777938e550314742fbee",
+    "scripts/container.sh": "4c836633b6c8870bd8eb8f72841c70925cc5de44dc361eee639ef701505bd626",
+    "scripts/sched_bench.py": "5187fbaafcd0f2a6dc6850a4e88df06345a17c3be3b22d934fb8aa1cb5c0c7c1",
+    "scripts/test.sh": "1a70e4eb88233b575007694411eef2b93262ad7e36e9548512e6408e3ad6cfc7",
+    "src/info.cpp": "06a647d33ec62518cc59f66543ecda8b4d2fc1cb2f3e46ec8c33edc8e3813ee5",
+    "tests/common_test.cpp": "8629142f585394ef6a2d3167f1535058d5d34353cf7f94a96675d1f2d373d22b"
+  },
+  "source_sha256": "ab4b7ed6e198889b3c8f27fca4189bb42aedd2c30b2b7e5a6dd62c5d8b492af3",
+  "measurement": "deterministic simulation in microseconds; one execution per policy/workload; not a hardware speed benchmark",
+  "configuration": {
+    "rr_quantum_us": 2000,
+    "mlfq_quantums_us": [
+      1000,
+      4000,
+      8000
+    ],
+    "boost_period_us": 20000,
+    "target_latency_us": 8000,
+    "min_granularity_us": 500,
+    "starvation_threshold_us": 50000
+  }
+}

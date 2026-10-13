@@ -1,0 +1,34 @@
+COMMAND ['cmake', '-S', '/src', '-B', '/build/scheduler', '-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release']
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/scheduler
+COMMAND ['cmake', '--build', '/build/scheduler', '--parallel', '4']
+[1/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[2/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[3/20] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[4/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[5/20] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[6/20] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[7/20] Linking CXX static library rpc/libos_rpc.a
+[8/20] Linking CXX static library sched/libos_sched.a
+[9/20] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[10/20] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[11/20] Linking CXX executable os_info
+[12/20] Linking CXX executable common_test
+[13/20] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[14/20] Linking CXX executable rpc/rpc_server
+[15/20] Linking CXX executable rpc/rpc_bench
+[16/20] Linking CXX executable sched/sched_bench
+[17/20] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[18/20] Linking CXX executable rpc/rpc_test
+[19/20] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+[20/20] Linking CXX executable sched/sched_test

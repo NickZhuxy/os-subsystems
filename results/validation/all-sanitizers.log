@@ -1,0 +1,238 @@
+docker build --target dev -f docker/Dockerfile -t os-subsystems-dev:local .
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.54kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 ...
+
+#3 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.5s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#4 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+#4 CACHED
+
+#5 [internal] load metadata for docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#5 ...
+
+#6 [auth] library/debian:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#5 DONE 0.7s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 265B done
+#7 DONE 0.1s
+
+#8 [base 1/2] FROM docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#8 resolve docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f 0.0s done
+#8 DONE 0.0s
+
+#9 [dev 2/3] RUN apt-get update && apt-get install -y --no-install-recommends libclang-rt-19-dev &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [base 2/2] RUN rm -f /etc/apt/sources.list.d/debian.sources &&     printf 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/%s/ trixie main\ndeb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/%s/ trixie-security main\n' "20261013T000000Z" "20261013T000000Z" > /etc/apt/sources.list
+#10 CACHED
+
+#11 [dev 1/3] RUN apt-get update && apt-get install -y --no-install-recommends     clang cmake ninja-build make python3 gdb valgrind linux-perf     libfuse3-dev fuse3 pkg-config ca-certificates &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#11 CACHED
+
+#12 [dev 3/3] WORKDIR /src
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers done
+#13 exporting manifest sha256:8517927f03ca0bc7eb271ed219f5a368ac4768511a0f32d16da5cef741a8ff65 0.0s done
+#13 exporting config sha256:ba862f68336a488b2dd62ad988c943201986561b8678a52e0beb96e3654fe4fb done
+#13 exporting attestation manifest sha256:7533d59ab0a439189f4fe266b6af0f71a7453ecd1d6825eb35552321bb7fce93 0.0s done
+#13 exporting manifest list sha256:ab1fe3b670b8d26e151a984f700dc673442892f1b14a1566f038f65c4781af5a
+#13 exporting manifest list sha256:ab1fe3b670b8d26e151a984f700dc673442892f1b14a1566f038f65c4781af5a 0.0s done
+#13 naming to docker.io/library/os-subsystems-dev:local done
+#13 unpacking to docker.io/library/os-subsystems-dev:local done
+#13 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/sqzvi74htm1finsjv8t1e40t3
+docker run --rm --cpus=4 --memory=4g --security-opt seccomp=unconfined --ulimit nofile=65536:65536 -v "/Users/nickzhu/Desktop/Projects/os-subsystems:/checkout:ro" os-subsystems-dev:local sh /checkout/scripts/container.sh sh scripts/test.sh
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (1.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/none
+[1/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[2/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[3/20] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[4/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[5/20] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[6/20] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[7/20] Linking CXX static library rpc/libos_rpc.a
+[8/20] Linking CXX static library sched/libos_sched.a
+[9/20] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[10/20] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[11/20] Linking CXX executable os_info
+[12/20] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[13/20] Linking CXX executable common_test
+[14/20] Linking CXX executable rpc/rpc_server
+[15/20] Linking CXX executable rpc/rpc_bench
+[16/20] Linking CXX executable sched/sched_bench
+[17/20] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[18/20] Linking CXX executable rpc/rpc_test
+[19/20] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+[20/20] Linking CXX executable sched/sched_test
+Internal ctest changing into directory: /build/none
+Test project /build/none
+    Start 1: common
+1/3 Test #1: common ...........................   Passed    0.01 sec
+    Start 2: rpc
+2/3 Test #2: rpc ..............................   Passed    0.72 sec
+    Start 3: scheduler
+3/3 Test #3: scheduler ........................   Passed    0.08 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   0.81 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/address
+[1/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[2/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[3/20] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[4/20] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[5/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[6/20] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[7/20] Linking CXX static library rpc/libos_rpc.a
+[8/20] Linking CXX static library sched/libos_sched.a
+[9/20] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[10/20] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[11/20] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[12/20] Linking CXX executable os_info
+[13/20] Linking CXX executable common_test
+[14/20] Linking CXX executable rpc/rpc_server
+[15/20] Linking CXX executable rpc/rpc_bench
+[16/20] Linking CXX executable sched/sched_bench
+[17/20] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[18/20] Linking CXX executable rpc/rpc_test
+[19/20] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+[20/20] Linking CXX executable sched/sched_test
+Internal ctest changing into directory: /build/address
+Test project /build/address
+    Start 1: common
+1/3 Test #1: common ...........................   Passed    0.02 sec
+    Start 2: rpc
+2/3 Test #2: rpc ..............................   Passed    0.72 sec
+    Start 3: scheduler
+3/3 Test #3: scheduler ........................   Passed    0.18 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   0.92 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/undefined
+[1/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[2/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[3/20] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[4/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[5/20] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[6/20] Linking CXX static library rpc/libos_rpc.a
+[7/20] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[8/20] Linking CXX static library sched/libos_sched.a
+[9/20] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[10/20] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[11/20] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[12/20] Linking CXX executable os_info
+[13/20] Linking CXX executable common_test
+[14/20] Linking CXX executable rpc/rpc_server
+[15/20] Linking CXX executable rpc/rpc_bench
+[16/20] Linking CXX executable sched/sched_bench
+[17/20] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[18/20] Linking CXX executable rpc/rpc_test
+[19/20] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+[20/20] Linking CXX executable sched/sched_test
+Internal ctest changing into directory: /build/undefined
+Test project /build/undefined
+    Start 1: common
+1/3 Test #1: common ...........................   Passed    0.00 sec
+    Start 2: rpc
+2/3 Test #2: rpc ..............................   Passed    0.68 sec
+    Start 3: scheduler
+3/3 Test #3: scheduler ........................   Passed    0.11 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   0.80 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/thread
+[1/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[2/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[3/20] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[4/20] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[5/20] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[6/20] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[7/20] Linking CXX static library rpc/libos_rpc.a
+[8/20] Linking CXX static library sched/libos_sched.a
+[9/20] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[10/20] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[11/20] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[12/20] Linking CXX executable common_test
+[13/20] Linking CXX executable os_info
+[14/20] Linking CXX executable rpc/rpc_server
+[15/20] Linking CXX executable rpc/rpc_bench
+[16/20] Linking CXX executable sched/sched_bench
+[17/20] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[18/20] Linking CXX executable rpc/rpc_test
+[19/20] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+[20/20] Linking CXX executable sched/sched_test
+Internal ctest changing into directory: /build/thread
+Test project /build/thread
+    Start 1: common
+1/3 Test #1: common ...........................   Passed    0.02 sec
+    Start 2: rpc
+2/3 Test #2: rpc ..............................   Passed    0.74 sec
+    Start 3: scheduler
+3/3 Test #3: scheduler ........................   Passed    0.26 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   1.02 sec

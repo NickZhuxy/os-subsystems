@@ -1,0 +1,5 @@
+name,arrival_us,weight,service_us,first_run_us,completion_us,ready_wait_us,max_ready_wait_us
+nice-5,0,3125,500000,0,,0,0
+nice0,0,1024,0,,,500000,500000
+nice5,0,335.54432,0,,,500000,500000
+nice10,0,109.9511627776,0,,,500000,500000

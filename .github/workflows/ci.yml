@@ -1,0 +1,26 @@
+name: linux
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer: [none, address, undefined, thread]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the development image
+        run: make dev
+      - name: Build and test
+        run: >-
+          docker run --rm --security-opt seccomp=unconfined
+          --cpus=4 --memory=4g --ulimit nofile=65536:65536 -v "$PWD:/checkout:ro"
+          os-subsystems-dev:local sh /checkout/scripts/container.sh sh scripts/test.sh ${{ matrix.sanitizer }}
+  runtime:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: make image
+      - run: docker run --rm os-subsystems:local

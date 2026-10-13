@@ -1,0 +1,9 @@
+name,arrival_us,nice,burst_index,kind,duration_us
+cpu0,0,0,0,cpu,100000000
+cpu1,0,0,0,cpu,100000000
+cpu2,0,0,0,cpu,100000000
+cpu3,0,0,0,cpu,100000000
+cpu4,0,0,0,cpu,100000000
+cpu5,0,0,0,cpu,100000000
+cpu6,0,0,0,cpu,100000000
+cpu7,0,0,0,cpu,100000000

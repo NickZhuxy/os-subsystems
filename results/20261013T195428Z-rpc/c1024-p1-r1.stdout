@@ -1,0 +1,1 @@
+{"connections":1024,"requests_per_connection":500,"warmup_per_connection":50,"pipeline":1,"payload_bytes":64,"completed":512000,"errors":0,"elapsed_seconds":4.391395544,"throughput_rps":116591.638095,"p50_us":6989.333,"p95_us":18692.458,"p99_us":40396.125}

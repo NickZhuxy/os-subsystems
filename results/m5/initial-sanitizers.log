@@ -1,0 +1,231 @@
+docker build --target dev -f docker/Dockerfile -t os-subsystems-dev:local .
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.54kB 0.0s done
+#1 DONE 0.1s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 ...
+
+#3 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.6s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#4 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+#4 CACHED
+
+#5 [internal] load metadata for docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#5 DONE 0.0s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 265B done
+#6 DONE 0.3s
+
+#7 [base 1/2] FROM docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#7 resolve docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f done
+#7 DONE 0.0s
+
+#8 [base 2/2] RUN rm -f /etc/apt/sources.list.d/debian.sources &&     printf 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/%s/ trixie main\ndeb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/%s/ trixie-security main\n' "20261013T000000Z" "20261013T000000Z" > /etc/apt/sources.list
+#8 CACHED
+
+#9 [dev 1/3] RUN apt-get update && apt-get install -y --no-install-recommends     clang cmake ninja-build make python3 gdb valgrind linux-perf     libfuse3-dev fuse3 pkg-config ca-certificates &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [dev 2/3] RUN apt-get update && apt-get install -y --no-install-recommends libclang-rt-19-dev &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#10 0.604 Get:1 http://snapshot.debian.org/archive/debian/20261013T000000Z trixie InRelease [140 kB]
+#10 0.635 Get:2 http://snapshot.debian.org/archive/debian-security/20261013T000000Z trixie-security InRelease [43.4 kB]
+#10 0.682 Get:3 http://snapshot.debian.org/archive/debian/20261013T000000Z trixie/main arm64 Packages [9614 kB]
+#10 1.512 Get:4 http://snapshot.debian.org/archive/debian-security/20261013T000000Z trixie-security/main arm64 Packages [267 kB]
+#10 2.185 Fetched 10.1 MB in 2s (5974 kB/s)
+#10 2.185 Reading package lists...
+#10 2.832 Reading package lists...
+#10 3.522 Building dependency tree...
+#10 3.849 Reading state information...
+#10 4.420 The following NEW packages will be installed:
+#10 4.420   libclang-rt-19-dev
+#10 5.053 0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+#10 5.053 Need to get 2024 kB of archives.
+#10 5.053 After this operation, 30.5 MB of additional disk space will be used.
+#10 5.053 Get:1 http://snapshot.debian.org/archive/debian/20261013T000000Z trixie/main arm64 libclang-rt-19-dev arm64 1:19.1.7-3+b1 [2024 kB]
+#10 6.108 debconf: unable to initialize frontend: Dialog
+#10 6.108 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#10 6.108 debconf: falling back to frontend: Readline
+#10 6.114 debconf: unable to initialize frontend: Readline
+#10 6.114 debconf: (This frontend requires a controlling tty.)
+#10 6.114 debconf: falling back to frontend: Teletype
+#10 6.118 debconf: unable to initialize frontend: Teletype
+#10 6.118 debconf: (This frontend requires a controlling tty.)
+#10 6.118 debconf: falling back to frontend: Noninteractive
+#10 6.567 Fetched 2024 kB in 1s (1589 kB/s)
+#10 6.588 Selecting previously unselected package libclang-rt-19-dev:arm64.
+#10 6.588 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 20481 files and directories currently installed.)
+#10 6.634 Preparing to unpack .../libclang-rt-19-dev_1%3a19.1.7-3+b1_arm64.deb ...
+#10 6.636 Unpacking libclang-rt-19-dev:arm64 (1:19.1.7-3+b1) ...
+#10 6.823 Setting up libclang-rt-19-dev:arm64 (1:19.1.7-3+b1) ...
+#10 DONE 7.0s
+
+#11 [dev 3/3] WORKDIR /src
+#11 DONE 0.1s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 0.9s done
+#12 exporting manifest sha256:8517927f03ca0bc7eb271ed219f5a368ac4768511a0f32d16da5cef741a8ff65 done
+#12 exporting config sha256:ba862f68336a488b2dd62ad988c943201986561b8678a52e0beb96e3654fe4fb done
+#12 exporting attestation manifest sha256:5f5fb3b013bcfe6f6556b7f7e19a78bbcda0c58329b93105f490f9583dd73fad done
+#12 exporting manifest list sha256:b9849f71683b67a7d0f68383578fa24148a9706b368d6a79b3180a6a05606dfb done
+#12 naming to docker.io/library/os-subsystems-dev:local done
+#12 unpacking to docker.io/library/os-subsystems-dev:local
+#12 unpacking to docker.io/library/os-subsystems-dev:local 0.2s done
+#12 DONE 1.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/fxv42c36pkbnxwt164985w918
+docker run --rm --security-opt seccomp=unconfined --ulimit nofile=65536:65536 -v "/Users/nickzhu/Desktop/Projects/os-subsystems:/src:ro" os-subsystems-dev:local sh scripts/test.sh
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/none
+[1/14] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[2/14] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[3/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[4/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[5/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[6/14] Linking CXX static library rpc/libos_rpc.a
+[7/14] Linking CXX executable os_info
+[8/14] Linking CXX executable common_test
+[9/14] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[10/14] Linking CXX executable rpc/rpc_server
+[11/14] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[12/14] Linking CXX executable rpc/rpc_bench
+[13/14] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[14/14] Linking CXX executable rpc/rpc_test
+Internal ctest changing into directory: /build/none
+Test project /build/none
+    Start 1: common
+1/2 Test #1: common ...........................   Passed    0.00 sec
+    Start 2: rpc
+2/2 Test #2: rpc ..............................   Passed    0.68 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.69 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/address
+[1/14] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[2/14] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[3/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[4/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[5/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[6/14] Linking CXX static library rpc/libos_rpc.a
+[7/14] Linking CXX executable os_info
+[8/14] Linking CXX executable common_test
+[9/14] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[10/14] Linking CXX executable rpc/rpc_server
+[11/14] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[12/14] Linking CXX executable rpc/rpc_bench
+[13/14] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[14/14] Linking CXX executable rpc/rpc_test
+Internal ctest changing into directory: /build/address
+Test project /build/address
+    Start 1: common
+1/2 Test #1: common ...........................   Passed    0.02 sec
+    Start 2: rpc
+2/2 Test #2: rpc ..............................   Passed    0.72 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.73 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/undefined
+[1/14] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[2/14] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[3/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[4/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[5/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[6/14] Linking CXX static library rpc/libos_rpc.a
+[7/14] Linking CXX executable os_info
+[8/14] Linking CXX executable common_test
+[9/14] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[10/14] Linking CXX executable rpc/rpc_server
+[11/14] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[12/14] Linking CXX executable rpc/rpc_bench
+[13/14] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[14/14] Linking CXX executable rpc/rpc_test
+Internal ctest changing into directory: /build/undefined
+Test project /build/undefined
+    Start 1: common
+1/2 Test #1: common ...........................   Passed    0.01 sec
+    Start 2: rpc
+2/2 Test #2: rpc ..............................   Passed    0.72 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.73 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (1.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/thread
+[1/14] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[2/14] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+[3/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[4/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[5/14] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[6/14] Linking CXX static library rpc/libos_rpc.a
+[7/14] Linking CXX executable os_info
+[8/14] Linking CXX executable common_test
+[9/14] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[10/14] Linking CXX executable rpc/rpc_server
+[11/14] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[12/14] Linking CXX executable rpc/rpc_bench
+[13/14] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+[14/14] Linking CXX executable rpc/rpc_test
+Internal ctest changing into directory: /build/thread
+Test project /build/thread
+    Start 1: common
+1/2 Test #1: common ...........................   Passed    0.03 sec
+    Start 2: rpc
+2/2 Test #2: rpc ..............................   Passed    0.73 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.77 sec

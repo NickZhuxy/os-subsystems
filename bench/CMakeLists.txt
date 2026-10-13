@@ -1,0 +1,7 @@
+add_executable(hotspot_bench hotspots.cpp)
+target_link_libraries(hotspot_bench PRIVATE os_vm os_fs)
+install(TARGETS hotspot_bench RUNTIME DESTINATION bin)
+if(BUILD_TESTING)
+  add_test(NAME hotspot_vm COMMAND hotspot_bench --component vm --iterations 1024)
+  add_test(NAME hotspot_fs COMMAND hotspot_bench --component fs --iterations 1)
+endif()

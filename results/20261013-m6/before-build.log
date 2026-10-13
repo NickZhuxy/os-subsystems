@@ -1,0 +1,26 @@
+COMMAND ['cmake', '-S', '/src', '-B', '/build/profile-before', '-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release']
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'fuse3'
+--   Found fuse3, version 3.17.2
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/profile-before
+COMMAND ['cmake', '--build', '/build/profile-before', '--target', 'hotspot_bench', '--parallel', '4']
+[1/8] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+[2/8] Building CXX object vm/CMakeFiles/os_vm.dir/vm.cpp.o
+[3/8] Linking CXX static library vm/libos_vm.a
+[4/8] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+[5/8] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+[6/8] Linking CXX static library fs/libos_fs.a
+[7/8] Building CXX object bench/CMakeFiles/hotspot_bench.dir/hotspots.cpp.o
+[8/8] Linking CXX executable bench/hotspot_bench

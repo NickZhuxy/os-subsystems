@@ -1,3 +1,5 @@
 * text=auto
 # Preserve terminal logs, including carriage-return progress output.
 results/**/*.log -text whitespace=-blank-at-eol,-blank-at-eof
+results/**/*.cachegrind -text whitespace=-blank-at-eol,-blank-at-eof
+results/**/*-annotation.txt -text whitespace=-blank-at-eol,-blank-at-eof

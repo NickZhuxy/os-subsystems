@@ -1,0 +1,243 @@
+docker build --target runtime -f docker/Dockerfile -t os-subsystems:local .
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.55kB 0.0s done
+#1 DONE 0.1s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.5s
+
+#3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+#3 CACHED
+
+#4 [internal] load metadata for docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#4 ...
+
+#5 [auth] library/debian:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#4 DONE 0.4s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 289B 0.0s done
+#6 DONE 0.0s
+
+#7 [base 1/2] FROM docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#7 resolve docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f 0.0s done
+#7 DONE 0.0s
+
+#8 [base 2/2] RUN rm -f /etc/apt/sources.list.d/debian.sources &&     printf 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/%s/ trixie main\ndeb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/%s/ trixie-security main\n' "20261013T000000Z" "20261013T000000Z" > /etc/apt/sources.list
+#8 CACHED
+
+#9 [dev 1/3] RUN apt-get update && apt-get install -y --no-install-recommends     clang cmake ninja-build make python3 gdb valgrind linux-perf     libfuse3-dev fuse3 pkg-config ca-certificates &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [dev 2/3] RUN apt-get update && apt-get install -y --no-install-recommends libclang-rt-19-dev &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [dev 3/3] WORKDIR /src
+#11 CACHED
+
+#12 [internal] load build context
+#12 transferring context: 178.53kB 0.0s done
+#12 DONE 0.1s
+
+#13 [runtime 1/2] RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 libfuse3-4 fuse3 &&     rm -rf /var/lib/apt/lists/*
+#13 ...
+
+#14 [builder 1/2] COPY . /src
+#14 DONE 0.2s
+
+#15 [builder 2/2] RUN cmake -S . -B /build -G Ninja -DCMAKE_BUILD_TYPE=Release &&     cmake --build /build --parallel 4 &&     ctest --test-dir /build --output-on-failure &&     cmake --install /build --prefix /install --strip
+#15 4.733 -- The CXX compiler identification is Clang 19.1.7
+#15 4.782 -- Detecting CXX compiler ABI info
+#15 4.965 -- Detecting CXX compiler ABI info - done
+#15 4.977 -- Check for working CXX compiler: /usr/bin/clang++ - skipped
+#15 4.979 -- Detecting CXX compile features
+#15 4.987 -- Detecting CXX compile features - done
+#15 5.038 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+#15 5.303 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+#15 5.320 -- Found Threads: TRUE
+#15 5.584 -- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+#15 5.613 -- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+#15 5.613 -- Checking for module 'fuse3'
+#15 5.634 --   Found fuse3, version 3.17.2
+#15 5.775 -- Configuring done (3.7s)
+#15 5.840 -- Generating done (0.1s)
+#15 5.840 -- Build files have been written to: /build
+#15 ...
+
+#13 [runtime 1/2] RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 libfuse3-4 fuse3 &&     rm -rf /var/lib/apt/lists/*
+#13 2.376 Get:1 http://snapshot.debian.org/archive/debian/20261013T000000Z trixie InRelease [140 kB]
+#13 2.419 Get:2 http://snapshot.debian.org/archive/debian-security/20261013T000000Z trixie-security InRelease [43.4 kB]
+#13 2.611 Get:3 http://snapshot.debian.org/archive/debian/20261013T000000Z trixie/main arm64 Packages [9614 kB]
+#13 2.881 Get:4 http://snapshot.debian.org/archive/debian-security/20261013T000000Z trixie-security/main arm64 Packages [267 kB]
+#13 4.294 Fetched 10.1 MB in 2s (5173 kB/s)
+#13 4.294 Reading package lists...
+#13 5.570 Reading package lists...
+#13 6.161 Building dependency tree...
+#13 6.315 Reading state information...
+#13 6.893 libstdc++6 is already the newest version (14.2.0-19).
+#13 6.893 libstdc++6 set to manually installed.
+#13 6.893 Suggested packages:
+#13 6.893   liblocale-gettext-perl perl cron quota
+#13 6.950 The following NEW packages will be installed:
+#13 6.951   adduser fuse3 libfuse3-4
+#13 7.969 0 upgraded, 3 newly installed, 0 to remove and 1 not upgraded.
+#13 7.969 Need to get 324 kB of archives.
+#13 7.969 After this operation, 1014 kB of additional disk space will be used.
+#13 7.969 Get:1 http://snapshot.debian.org/archive/debian/20261013T000000Z trixie/main arm64 adduser all 3.152 [191 kB]
+#13 8.425 Get:2 http://snapshot.debian.org/archive/debian/20261013T000000Z trixie/main arm64 libfuse3-4 arm64 3.17.2-3 [93.4 kB]
+#13 8.885 Get:3 http://snapshot.debian.org/archive/debian/20261013T000000Z trixie/main arm64 fuse3 arm64 3.17.2-3 [40.0 kB]
+#13 ...
+
+#15 [builder 2/2] RUN cmake -S . -B /build -G Ninja -DCMAKE_BUILD_TYPE=Release &&     cmake --build /build --parallel 4 &&     ctest --test-dir /build --output-on-failure &&     cmake --install /build --prefix /install --strip
+#15 8.719 [1/50] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+#15 8.748 [2/50] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+#15 9.101 [3/50] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+#15 11.45 [4/50] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+#15 11.87 [5/50] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+#15 ...
+
+#13 [runtime 1/2] RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 libfuse3-4 fuse3 &&     rm -rf /var/lib/apt/lists/*
+#13 9.552 debconf: unable to initialize frontend: Dialog
+#13 9.552 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#13 9.552 debconf: falling back to frontend: Readline
+#13 9.556 debconf: unable to initialize frontend: Readline
+#13 9.561 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/aarch64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 3.)
+#13 9.561 debconf: falling back to frontend: Teletype
+#13 9.589 debconf: unable to initialize frontend: Teletype
+#13 9.589 debconf: (This frontend requires a controlling tty.)
+#13 9.589 debconf: falling back to frontend: Noninteractive
+#13 11.36 Fetched 324 kB in 2s (152 kB/s)
+#13 11.42 Selecting previously unselected package adduser.
+#13 11.42 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4948 files and directories currently installed.)
+#13 11.51 Preparing to unpack .../archives/adduser_3.152_all.deb ...
+#13 11.51 Unpacking adduser (3.152) ...
+#13 11.62 Setting up adduser (3.152) ...
+#13 11.71 Selecting previously unselected package libfuse3-4:arm64.
+#13 11.71 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 5033 files and directories currently installed.)
+#13 11.71 Preparing to unpack .../libfuse3-4_3.17.2-3_arm64.deb ...
+#13 11.74 Unpacking libfuse3-4:arm64 (3.17.2-3) ...
+#13 11.82 Selecting previously unselected package fuse3.
+#13 11.82 Preparing to unpack .../fuse3_3.17.2-3_arm64.deb ...
+#13 11.84 Adding 'diversion of /bin/fusermount to /bin/fusermount.usr-is-merged by fuse3'
+#13 11.85 Adding 'diversion of /sbin/mount.fuse to /sbin/mount.fuse.usr-is-merged by fuse3'
+#13 11.87 Unpacking fuse3 (3.17.2-3) ...
+#13 11.94 Setting up libfuse3-4:arm64 (3.17.2-3) ...
+#13 11.97 Setting up fuse3 (3.17.2-3) ...
+#13 12.08 Removing 'diversion of /bin/fusermount to /bin/fusermount.usr-is-merged by fuse3'
+#13 12.11 Removing 'diversion of /sbin/mount.fuse to /sbin/mount.fuse.usr-is-merged by fuse3'
+#13 12.17 Processing triggers for libc-bin (2.41-12+deb13u4) ...
+#13 DONE 12.5s
+
+#15 [builder 2/2] RUN cmake -S . -B /build -G Ninja -DCMAKE_BUILD_TYPE=Release &&     cmake --build /build --parallel 4 &&     ctest --test-dir /build --output-on-failure &&     cmake --install /build --prefix /install --strip
+#15 12.26 [6/50] Building CXX object vm/CMakeFiles/os_vm.dir/vm.cpp.o
+#15 12.47 [7/50] Building CXX object sync/CMakeFiles/os_sync.dir/synchronization.cpp.o
+#15 12.74 [8/50] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+#15 12.88 [9/50] Linking CXX static library rpc/libos_rpc.a
+#15 12.92 [10/50] Building CXX object CMakeFiles/common_test.dir/tests/common_test.cpp.o
+#15 13.50 [11/50] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+#15 14.50 [12/50] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+#15 14.53 [13/50] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+#15 14.56 [14/50] Linking CXX static library sched/libos_sched.a
+#15 15.06 [15/50] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+#15 15.11 [16/50] Linking CXX static library vm/libos_vm.a
+#15 15.59 [17/50] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+#15 15.62 [18/50] Building CXX object vm/CMakeFiles/vm_trace_workload.dir/trace_workload.cpp.o
+#15 15.88 [19/50] Building CXX object rpc/CMakeFiles/rpc_test.dir/test.cpp.o
+#15 15.93 [20/50] Linking CXX static library fs/libos_fs.a
+#15 16.71 [21/50] Building CXX object fs/CMakeFiles/fs_mkfs.dir/mkfs_main.cpp.o
+#15 16.80 [22/50] Building CXX object vm/CMakeFiles/vm_test.dir/test.cpp.o
+#15 16.81 [23/50] Building CXX object vm/CMakeFiles/vm_bench.dir/main.cpp.o
+#15 16.82 [24/50] Building CXX object sched/CMakeFiles/sched_test.dir/test.cpp.o
+#15 17.44 [25/50] Building CXX object fs/CMakeFiles/fs_check.dir/check_main.cpp.o
+#15 17.48 [26/50] Linking CXX static library sync/libos_sync.a
+#15 17.62 [27/50] Building CXX object fs/CMakeFiles/fs_mount.dir/fuse_main.cpp.o
+#15 17.63 [28/50] Building CXX object fs/CMakeFiles/fs_cli.dir/cli_main.cpp.o
+#15 18.80 [29/50] Building CXX object bench/CMakeFiles/hotspot_bench.dir/hotspots.cpp.o
+#15 18.86 [30/50] Linking CXX executable os_info
+#15 18.91 [31/50] Linking CXX executable common_test
+#15 18.97 [32/50] Linking CXX executable rpc/rpc_server
+#15 19.02 [33/50] Linking CXX executable rpc/rpc_bench
+#15 19.08 [34/50] Linking CXX executable rpc/rpc_test
+#15 19.17 [35/50] Linking CXX executable sched/sched_bench
+#15 19.27 [36/50] Linking CXX executable sched/sched_test
+#15 19.35 [37/50] Linking CXX executable vm/vm_bench
+#15 19.41 [38/50] Linking CXX executable vm/vm_trace_workload
+#15 19.51 [39/50] Linking CXX executable vm/vm_test
+#15 19.60 [40/50] Linking CXX executable fs/fs_mkfs
+#15 19.74 [41/50] Linking CXX executable fs/fs_check
+#15 19.82 [42/50] Linking CXX executable fs/fs_cli
+#15 19.84 [43/50] Building CXX object fs/CMakeFiles/fs_test.dir/test.cpp.o
+#15 20.04 [44/50] Linking CXX executable fs/fs_mount
+#15 20.04 [45/50] Linking CXX executable fs/fs_test
+#15 20.16 [46/50] Building CXX object sync/CMakeFiles/sync_bench.dir/bench_main.cpp.o
+#15 20.18 [47/50] Linking CXX executable bench/hotspot_bench
+#15 20.28 [48/50] Linking CXX executable sync/sync_bench
+#15 20.51 [49/50] Building CXX object sync/CMakeFiles/sync_test.dir/test.cpp.o
+#15 20.58 [50/50] Linking CXX executable sync/sync_test
+#15 20.62 Internal ctest changing into directory: /build
+#15 20.62 Test project /build
+#15 20.62       Start  1: common
+#15 20.62  1/11 Test  #1: common ...........................   Passed    0.00 sec
+#15 20.62       Start  2: rpc
+#15 21.33  2/11 Test  #2: rpc ..............................   Passed    0.71 sec
+#15 21.33       Start  3: rpc_cli
+#15 21.37  3/11 Test  #3: rpc_cli ..........................   Passed    0.03 sec
+#15 21.37       Start  4: scheduler
+#15 21.41  4/11 Test  #4: scheduler ........................   Passed    0.04 sec
+#15 21.41       Start  5: vm
+#15 21.42  5/11 Test  #5: vm ...............................   Passed    0.01 sec
+#15 21.42       Start  6: fs
+#15 23.51  6/11 Test  #6: fs ...............................   Passed    2.09 sec
+#15 23.52       Start  7: fs_process
+#15 23.81  7/11 Test  #7: fs_process .......................   Passed    0.30 sec
+#15 23.82       Start  8: fs_fuse
+#15 23.88  8/11 Test  #8: fs_fuse ..........................***Skipped   0.07 sec
+#15 23.88       Start  9: synchronization
+#15 24.31  9/11 Test  #9: synchronization ..................   Passed    0.43 sec
+#15 24.31       Start 10: hotspot_vm
+#15 24.32 10/11 Test #10: hotspot_vm .......................   Passed    0.00 sec
+#15 24.32       Start 11: hotspot_fs
+#15 24.60 11/11 Test #11: hotspot_fs .......................   Passed    0.28 sec
+#15 24.60 
+#15 24.60 100% tests passed, 0 tests failed out of 11
+#15 24.60 
+#15 24.60 Total Test time (real) =   3.98 sec
+#15 24.60 
+#15 24.60 The following tests did not run:
+#15 24.60 	  8 - fs_fuse (Skipped)
+#15 24.61 -- Install configuration: "Release"
+#15 24.61 -- Installing: /install/bin/os_info
+#15 24.63 -- Installing: /install/bin/rpc_server
+#15 24.63 -- Installing: /install/bin/rpc_bench
+#15 24.63 -- Installing: /install/bin/sched_bench
+#15 24.64 -- Installing: /install/bin/vm_bench
+#15 24.64 -- Installing: /install/bin/fs_mkfs
+#15 24.65 -- Installing: /install/bin/fs_check
+#15 24.65 -- Installing: /install/bin/fs_cli
+#15 24.66 -- Installing: /install/bin/fs_mount
+#15 24.66 -- Installing: /install/bin/sync_bench
+#15 24.67 -- Installing: /install/bin/hotspot_bench
+#15 DONE 25.0s
+
+#16 [runtime 2/2] COPY --from=builder /install/bin/ /usr/local/bin/
+#16 DONE 0.1s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 0.3s done
+#17 exporting manifest sha256:5107d459ca338c2918a30ec3f16f95a3fbfbbce49fcfb34f112a63c087369dcc 0.0s done
+#17 exporting config sha256:a7ba2fd36a2e3a67c9b9ba66dcd58bbe80b2a217ddd1d6a537cd364d7c3061d0 0.0s done
+#17 exporting attestation manifest sha256:20911a5430a27806878bb8e3f4b961ceb4dd30e5343bdebc33bb1c9823e519fe 0.0s done
+#17 exporting manifest list sha256:fed2fa5cb48df4d5430255f452395fdeb3e7ae61f2ca5de938bdf5491068962a 0.0s done
+#17 naming to docker.io/library/os-subsystems:local done
+#17 unpacking to docker.io/library/os-subsystems:local
+#17 unpacking to docker.io/library/os-subsystems:local 0.3s done
+#17 DONE 0.8s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/rjo935v7fms6ig69p5knxcq30

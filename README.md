@@ -14,8 +14,8 @@ flowchart LR
   Docker --> VM[Demand paging]
   Docker --> FS[Inode file system]
   Docker --> Sync[Synchronization]
-  RPC -. planned .-> Bench[Profiling studies]
-  Sched -. planned .-> Bench
+  VM --> Bench[Profiling studies]
+  FS --> Bench
 ```
 
 ## Status
@@ -28,7 +28,7 @@ flowchart LR
 | Demand paging | Implemented and tested | Synthetic and captured-trace results below |
 | Inode file system | Implemented and tested, including a FUSE mount | Structural checks and crash results below |
 | Synchronization primitives | Implemented and tested | Contention results below; race and deadlock reproductions remain open |
-| Profiling case studies | In progress | Baseline collection |
+| Profiling case studies | Two changes measured | VM locality and file-system bitmap results below |
 
 ## Measured results
 
@@ -157,22 +157,38 @@ throughput for other workloads or machines. Source: [contention results](results
 and [calibration](results/20261013T231503Z-sync/calibration.json).
 See [ordering, memory reuse, test scope, and open evidence gaps](docs/concurrency.md).
 
-### Initial container baseline and validation
+### Profiling
+
+Cachegrind uses a fixed cache model. These are simulated cache counts, not
+hardware L1/L2 measurements. Native time is the median of seven runs.
+
+| Workload | Before | After | Observed change |
+| --- | --- | --- | --- |
+| VM aging scan: L1 data misses, 200,000 accesses | 3,774,197 | 225,206 | 94.033% fewer misses |
+| VM aging scan: LL data misses | 723 | 723 | No change |
+| VM aging scan: native time, 1,000,000 accesses | 94.056 ms | 61.120 ms | 35.017% less time |
+| File-system space query: image block reads per query | 8,435 | 2 | Repeated bitmap reads removed |
+| File-system space query: data references, 20 queries | 94,810,728 | 192,788 | 99.797% fewer references |
+| File-system space query: native time, 100 queries | 241.915 ms | 0.250 ms | 99.897% less time in this short region |
+
+For the file-system case, L1 miss counts changed from 81 to 80. Its miss rate
+increased because the change removed cache-hit accesses. Hardware `perf`
+counters were unavailable. Source: [raw comparisons](results/20261013-m6/comparison.json).
+See [both miss-rate tables, limits, and reproduction commands](docs/profiling.md).
+
+### Container and validation
 
 | Check | Observed result | Evidence |
 | --- | --- | --- |
-| Uncompressed image layer archives, Linux ARM64 | 103,430,144 bytes (103.430 MB) | [Image record](results/m7/image.json) |
-| Compressed layer blobs | 30,284,053 bytes (30.284 MB) | [Layer sizes](results/m7/image.json) |
-| Local image disk use reported by Docker | 140 MB | [Image record](results/m7/image.json) |
-| Two clean Release builds | Identical hashes for all four installed programs | [Build A](results/m7/binaries-a.sha256), [build B](results/m7/binaries-b.sha256) |
-| Runtime image programs | Same hashes as both clean builds | [Runtime hashes](results/m7/runtime-binaries.sha256) |
-| Normal, ASan, UBSan, and TSan tests | All 16 test runs passed | [Validation record](results/validation/summary.json) |
-| Tests after demand paging was added | All 20 test runs passed | [M2 test log](results/validation/m2-sanitizers.log) |
-| Tests after the file system was added | All 32 test runs passed, including mounted FUSE in all four builds | [M3 test log](results/validation/m3-sanitizers.log) |
-| Tests after synchronization was added | All 36 test runs passed | [M4 test log](results/validation/m4-sanitizers.log) |
+| Uncompressed image layer archives, Linux ARM64 | 104,949,248 bytes (104.949 MB) | [Image record](results/m7-final/image.json) |
+| Compressed layer blobs | 30,700,562 bytes (30.701 MB) | [Layer sizes](results/m7-final/image.json) |
+| Local image disk use reported by Docker | 142 MB | [Image record](results/m7-final/image.json) |
+| Two clean Release builds | Identical hashes for all 11 installed programs | [Build A](results/m7-final/binaries-a.sha256), [build B](results/m7-final/binaries-b.sha256) |
+| Runtime image programs | Same hashes as both clean builds | [Runtime hashes](results/m7-final/runtime-binaries.sha256) |
+| Normal, ASan, UBSan, and TSan tests | All 44 test runs passed; none skipped; mounted FUSE passed in every build | [Validation record](results/validation/final-summary.json), [test log](results/validation/final-sanitizers.log) |
 
-The image and binary measurements above cover the M7/M5/M1 checkpoint. The
-image measurements count different data. Uncompressed archive bytes include
+The initial M7/M5/M1 checkpoint remains in `results/m7/`. The image measurements
+count different data. Uncompressed archive bytes include
 tar headers and padding. Local disk use includes compressed data and unpacked
 files. Docker Engine 29.7.2 reports a smaller value through `image inspect` on
 this store. See the [Docker size notes](docs/container-evidence.md). The binary
@@ -273,6 +289,12 @@ check also need Python 3 on the host.
 
    ```sh
    make sync-bench
+   ```
+
+9. Check the saved profiling comparisons.
+
+   ```sh
+   python3 scripts/check_profiles.py
    ```
 
 ## Design and evidence

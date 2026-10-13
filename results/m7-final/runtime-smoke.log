@@ -1,0 +1,11 @@
+os-subsystems 0.1.0
+Linux 7.0.12-linuxkit aarch64
+{"policy":"cfs","workload":"weighted","processes":4,"horizon_us":500000,"elapsed_us":500000,"busy_us":500000,"idle_us":0,"completed":0,"dispatches":211,"mean_response_us":5119.75,"mean_turnaround_us":null,"jain_weighted_service":0.999974523466,"starvation_threshold_us":50000,"starved_processes":0}
+{"policy":"fifo","trace":"belady","frames":3,"tlb_entries":16,"aging_period":8,"seed":42,"accesses":12,"page_faults":9,"page_fault_rate":0.75,"tlb_hits":3,"tlb_hit_rate":0.25,"first_touches":5,"page_tables":1,"resident_pages":3,"evictions":6,"swap_reads":0,"swap_writes":0,"swap_bytes_written":0,"checksum":0,"elapsed_seconds_including_oracle":5.542e-06}
+{"kind":"hazard-queue","threads":2,"iterations_per_thread":1000,"warmup_per_thread":2000,"capacity":8192,"seconds":0.000264125,"operations":4000,"operations_per_second":15144344.5338,"checksum":2001000,"retries":0,"validated":true}
+{"component":"vm","iterations":1024,"seconds":6.5125e-05,"checksum":125590,"accesses":1024,"block_reads":0,"validated":true}
+{"component":"fs","iterations":1,"seconds":3.666e-06,"checksum":8305,"accesses":1,"block_reads":2,"validated":true}
+{"block_size":4096,"blocks":128,"inodes":32}
+{"clean":true,"allocated_inodes":3,"reachable_inodes":3,"referenced_data_blocks":2,"issues":[]}
+{"connections":8,"requests_per_connection":10,"warmup_per_connection":20,"pipeline":4,"payload_bytes":64,"completed":80,"errors":0,"elapsed_seconds":0.000324791,"throughput_rps":246312.243874,"p50_us":66.417,"p95_us":145.834,"p99_us":152.459}
+peak_connections=8

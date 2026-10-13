@@ -41,5 +41,14 @@ are references, not implementation sources.
 - [Historical CFS design](https://docs.kernel.org/scheduler/sched-design-CFS.html)
 - [Clang ThreadSanitizer](https://clang.llvm.org/docs/ThreadSanitizer.html)
 
-The CFS model will represent the historical vruntime design. It will not claim
+The CFS model represents the historical vruntime design. It does not claim
 to reproduce the current Linux scheduler or all kernel scheduling features.
+
+## Current evidence boundary
+
+All six component directories are implemented. Local builds, sanitizer tests,
+FUSE mounting, saved workloads, two profiling comparisons, and repeatable binary
+hashes are verified. The README links each reported number to saved results.
+GitHub CI has not run because no repository creation or push has been approved.
+The concurrency requirement for an actual discovered race and deadlock remains
+open; the documented implementation tests do not replace that evidence.

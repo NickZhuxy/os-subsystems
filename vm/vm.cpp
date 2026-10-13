@@ -36,7 +36,6 @@ struct Memory::Impl {
     struct Entry { std::size_t frame = 0; bool touched = false, present = false, swapped = false, dirty = false; };
     using Table = std::array<Entry, table_width>;
     struct Frame {
-        std::array<std::uint8_t, page_size> bytes{};
         std::uint32_t page = 0;
         std::uint8_t age = 0;
         bool used = false, referenced = false;
@@ -46,6 +45,8 @@ struct Memory::Impl {
     Statistics stats;
     std::array<std::unique_ptr<Table>, table_width> directory;
     std::vector<Frame> frames;
+    // Replacement scans touch compact metadata, not one cache line per 4 KiB page.
+    std::vector<std::array<std::uint8_t, page_size>> frame_bytes;
     std::vector<TlbEntry> tlb;
     std::deque<std::size_t> fifo;
     std::size_t next_free = 0, hand = 0;
@@ -55,7 +56,7 @@ struct Memory::Impl {
             throw std::invalid_argument("invalid VM configuration");
         if (config.policy != Replacement::fifo && config.policy != Replacement::clock && config.policy != Replacement::aging)
             throw std::invalid_argument("invalid replacement policy");
-        frames.resize(config.frames); tlb.resize(config.tlb_entries);
+        frames.resize(config.frames); frame_bytes.resize(config.frames); tlb.resize(config.tlb_entries);
     }
     Entry& entry(std::uint32_t page) {
         auto& table = directory.at(page >> 10);
@@ -95,7 +96,7 @@ struct Memory::Impl {
         else {
             selected = victim(); auto& old = frames[selected]; auto& old_pte = entry(old.page);
             if (old_pte.dirty) {
-                disk_io(swap.get(), old.bytes, old.page, true);
+                disk_io(swap.get(), frame_bytes[selected], old.page, true);
                 old_pte.swapped = true; old_pte.dirty = false;
                 ++stats.swap_writes; stats.swap_bytes_written += page_size;
             }
@@ -104,8 +105,8 @@ struct Memory::Impl {
             ++stats.evictions;
         }
         auto& frame = frames[selected];
-        if (pte.swapped) { disk_io(swap.get(), frame.bytes, page, false); ++stats.swap_reads; }
-        else frame.bytes.fill(0);
+        if (pte.swapped) { disk_io(swap.get(), frame_bytes[selected], page, false); ++stats.swap_reads; }
+        else frame_bytes[selected].fill(0);
         frame.page = page; frame.used = frame.referenced = true; frame.age = 128;
         pte.frame = selected; pte.present = true; pte.dirty = false;
         if (config.policy == Replacement::fifo) fifo.push_back(selected);
@@ -130,8 +131,8 @@ struct Memory::Impl {
             }
         }
         auto& frame = frames[*selected]; frame.referenced = true;
-        if (value) { frame.bytes[offset] = *value; entry(page).dirty = true; }
-        return frame.bytes[offset];
+        if (value) { frame_bytes[*selected][offset] = *value; entry(page).dirty = true; }
+        return frame_bytes[*selected][offset];
     }
     void validate() const {
         std::size_t count = 0;

@@ -93,6 +93,17 @@ void failed_transaction() {
     }
     clean(t.image());
 }
+void bitmap_boundaries() {
+    Temporary t; os::fs::format(t.image(),32775,32769);
+    auto geometry = disk::geometry(32775,32769);
+    {
+        Image fs(t.image()); auto before = fs.space();
+        CHECK(before.free_blocks == 32775 - geometry.data_start - 1); CHECK(before.free_inodes == 32767);
+        auto h = fs.create_open("/x",0644,O_WRONLY); fs.write(h,0,Bytes{1}); fs.release(h);
+        auto after = fs.space(); CHECK(after.free_blocks + 1 == before.free_blocks); CHECK(after.free_inodes + 1 == before.free_inodes);
+    }
+    clean(t.image());
+}
 void randomized_and_concurrent() {
     Temporary t; os::fs::format(t.image(),4096,128); std::mt19937 random(7129);
     {
@@ -143,7 +154,7 @@ void corruption_detection() {
 }
 }
 int main() {
-    try { namespace_operations(); addressing_and_truncation(); failed_transaction(); randomized_and_concurrent(); corruption_detection();
+    try { namespace_operations(); addressing_and_truncation(); failed_transaction(); bitmap_boundaries(); randomized_and_concurrent(); corruption_detection();
         std::cout << "filesystem: namespace, sparse pointers, ENOSPC rollback, 500 oracle operations, 4 threads, 6 corruptions passed\n";
     } catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
 }

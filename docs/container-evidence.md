@@ -1,16 +1,25 @@
 # Container evidence and size definitions
 
 `make image` uses a compiler stage and a runtime stage. The runtime includes
-Debian's base files, required C++ runtime libraries, and four stripped project
+Debian's base files, required C++ and FUSE runtime libraries, and eleven stripped project
 programs. It runs as UID/GID 65534. The smoke test checks that compilers and build
-tools are absent, runs a scheduler experiment, and exchanges RPC requests.
+tools are absent, exercises scheduling, paging, synchronization, filesystem tools
+and profiling workloads, and exchanges RPC requests. The FUSE mount itself is
+tested in the development container, with its device and mount capability.
 
 `make repro` builds from two empty, differently named build directories with the
 same pinned toolchain. It strips and hashes installed binaries. Both builds and
 the runtime image have matching hashes. This verifies repeatable binaries in
 this environment, not reproducible OCI metadata or cross-architecture identity.
 
-## Size reporting trap found during measurement
+## Current measurements
+
+`results/m7-final/` records 104,949,248 uncompressed layer-tar bytes, 30,700,562
+compressed layer-blob bytes, and 142 MB of Docker-reported disk use. All eleven
+installed binaries have identical hashes in two clean builds and the runtime
+image. The runtime smoke test passes as UID 65534.
+
+## Size reporting trap found during the initial measurement
 
 On Docker Engine 29.7.2 with the containerd image store, `docker image inspect`
 reported 30,287,980 bytes, while `docker image ls` reported 140 MB. The smaller
@@ -24,7 +33,8 @@ Sources: [Docker Engine 29 release notes](https://docs.docker.com/engine/release
 The host-side `scripts/image_evidence.py` exports the local image with `docker
 image save`. It reads each layer from the manifest, decompresses gzip layers,
 and counts the full uncompressed tar stream. It records every layer and both
-Docker CLI observations in `results/m7/image.json`.
+Docker CLI observations. The initial checkpoint remains in `results/m7/image.json`;
+new measurements default to `results/m7-final/image.json`.
 
 The measured layer archives total 103,430,144 bytes. The compressed layer blobs
 total 30,284,053 bytes. Neither is interchangeable with 140 MB of reported local
@@ -34,9 +44,12 @@ No daemon restart or upgrade was needed to make this distinction.
 
 ## Validation provenance
 
-`results/validation/all-sanitizers.log` contains the successful final four-build
-test run. `summary.json` records the source file hashes and scope. The ARM64
-runtime build also executes the tests before installing the programs.
+`results/validation/final-sanitizers.log` contains the current successful four-build
+test run: eleven tests per configuration, 44 passes, no skips. `final-summary.json`
+records source file hashes and scope. The ARM64 runtime builder also executes the
+non-mounted tests before installing the programs; its FUSE mount test is skipped
+because the image-build sandbox has no mount device. `make test` separately runs
+the mounted test in every sanitizer configuration. Earlier checkpoint logs remain.
 
 Earlier logs remain for transparency. `results/m7/bootstrap-tests.log` failed
 because a source bind mount exposed the RPC directory while it was being written.

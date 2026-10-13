@@ -14,7 +14,7 @@ sched-bench: dev
 	mkdir -p results
 	docker run --rm --cpus=4 --memory=4g -v "$(CURDIR):/checkout:ro" -v "$(CURDIR)/results:/src/results" $(DEV_IMAGE) sh /checkout/scripts/container.sh python3 scripts/sched_bench.py
 repro: dev
-	mkdir -p results/m7
+	mkdir -p results/m7-final
 	docker run --rm --cpus=4 --memory=4g -v "$(CURDIR):/checkout:ro" -v "$(CURDIR)/results:/src/results" $(DEV_IMAGE) sh /checkout/scripts/container.sh sh scripts/repro.sh
 vm-bench: dev
 	mkdir -p results

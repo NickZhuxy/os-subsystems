@@ -1,0 +1,21 @@
+==124== Cachegrind, a high-precision tracing profiler
+==124== Copyright (C) 2002-2024, and GNU GPL'd, by Nicholas Nethercote et al.
+==124== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==124== Command: /build/profile-after/bench/hotspot_bench --component vm --iterations 200000
+==124== 
+==124== 
+==124== I refs:        261,150,020
+==124== I1  misses:             18
+==124== LLi misses:             18
+==124== I1  miss rate:        0.00%
+==124== LLi miss rate:        0.00%
+==124== 
+==124== D refs:         88,650,008  (59,250,001 rd   + 29,400,007 wr)
+==124== D1  misses:        225,206  (   225,197 rd   +          9 wr)
+==124== LLd misses:            723  (       714 rd   +          9 wr)
+==124== D1  miss rate:         0.3% (       0.4%     +        0.0%  )
+==124== LLd miss rate:         0.0% (       0.0%     +        0.0%  )
+==124== 
+==124== LL refs:           225,224  (   225,215 rd   +          9 wr)
+==124== LL misses:             741  (       732 rd   +          9 wr)
+==124== LL miss rate:          0.0% (       0.0%     +        0.0%  )

@@ -457,10 +457,17 @@ void Image::set_mtime(const std::string& path, std::uint64_t nanoseconds) {
 }
 Space Image::space() {
     std::lock_guard lock(impl_->mutex); Space result{impl_->super.blocks,0,impl_->super.inodes,0};
-    for (std::uint32_t id = impl_->super.data_start; id < impl_->super.blocks; ++id)
-        result.free_blocks += !impl_->bit(impl_->super.block_bitmap,id);
-    for (std::uint32_t id = 2; id < impl_->super.inodes; ++id)
-        result.free_inodes += !impl_->bit(impl_->super.inode_bitmap,id);
+    auto count_free = [&](std::uint32_t bitmap, std::uint32_t first, std::uint32_t end) {
+        std::uint64_t free = 0;
+        while (first < end) {
+            auto block = impl_->read_block(bitmap + first / 32768);
+            auto limit = std::min(end,(first / 32768 + 1) * 32768);
+            for (; first < limit; ++first) free += !(block[(first % 32768) / 8] & (1U << (first % 8)));
+        }
+        return free;
+    };
+    result.free_blocks = count_free(impl_->super.block_bitmap,impl_->super.data_start,impl_->super.blocks);
+    result.free_inodes = count_free(impl_->super.inode_bitmap,2,impl_->super.inodes);
     return result;
 }
 void Image::sync() { std::lock_guard lock(impl_->mutex); impl_->synchronize(); }

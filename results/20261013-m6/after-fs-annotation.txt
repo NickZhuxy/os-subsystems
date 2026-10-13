@@ -1,0 +1,41 @@
+--------------------------------------------------------------------------------
+-- Metadata
+--------------------------------------------------------------------------------
+Invocation:       /usr/bin/cg_annotate --auto=no --show=Dr,D1mr,Dw,D1mw,DLmr,DLmw /src/results/20261013-m6/after-fs.cachegrind
+I1 cache:         32768 B, 64 B, 8-way associative
+D1 cache:         32768 B, 64 B, 8-way associative
+LL cache:         8388608 B, 64 B, 16-way associative
+Command:          /build/profile-after/bench/hotspot_bench --component fs --iterations 20
+Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Events shown:     Dr D1mr Dw D1mw DLmr DLmw
+Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Threshold:        0.1%
+Annotation:       off
+
+--------------------------------------------------------------------------------
+-- Summary
+--------------------------------------------------------------------------------
+Dr______________ D1mr_______ Dw_____________ D1mw_______ DLmr_______ DLmw_______ 
+
+170,801 (100.0%) 10 (100.0%) 21,987 (100.0%) 70 (100.0%) 10 (100.0%) 70 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+-- File:function summary
+--------------------------------------------------------------------------------
+  Dr____________________ D1mr____________ Dw___________________ D1mw_____________ DLmr____________ DLmw_____________  file:function
+
+< 169,300 (99.1%, 99.1%) 2 (20.0%, 20.0%)    700  (3.2%,  3.2%)  3  (4.3%,  4.3%) 2 (20.0%, 20.0%)  3  (4.3%,  4.3%)  build/./fs/image.cpp:
+  169,180 (99.1%)        1 (10.0%)           480  (2.2%)         1  (1.4%)        1 (10.0%)         1  (1.4%)           os::fs::Image::space()::$_0::operator()(unsigned int, unsigned int, unsigned int) const
+
+<       0  (0.0%, 99.1%) 0  (0.0%, 20.0%) 20,480 (93.1%, 96.3%) 64 (91.4%, 95.7%) 0  (0.0%, 20.0%) 64 (91.4%, 95.7%)  ./string/../sysdeps/aarch64/multiarch/../memset.S:__memset_zva64
+
+--------------------------------------------------------------------------------
+-- Function:file summary
+--------------------------------------------------------------------------------
+  Dr____________________ D1mr____________ Dw___________________ D1mw_____________ DLmr____________ DLmw_____________  function:file
+
+> 169,380 (99.2%, 99.2%) 2 (20.0%, 20.0%)    480  (2.2%,  2.2%)  1  (1.4%,  1.4%) 2 (20.0%, 20.0%)  1  (1.4%,  1.4%)  os::fs::Image::space()::$_0::operator()(unsigned int, unsigned int, unsigned int) const:
+  169,180 (99.1%)        1 (10.0%)           480  (2.2%)         1  (1.4%)        1 (10.0%)         1  (1.4%)           build/./fs/image.cpp
+
+>       0  (0.0%, 99.2%) 0  (0.0%, 20.0%) 20,480 (93.1%, 95.3%) 64 (91.4%, 92.9%) 0  (0.0%, 20.0%) 64 (91.4%, 92.9%)  __memset_zva64:./string/../sysdeps/aarch64/multiarch/../memset.S
+

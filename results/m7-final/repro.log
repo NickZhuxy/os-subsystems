@@ -1,0 +1,181 @@
+docker build --target dev -f docker/Dockerfile -t os-subsystems-dev:local .
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.55kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.2s
+
+#3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+#3 CACHED
+
+#4 [internal] load metadata for docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#4 DONE 0.1s
+
+#5 [base 1/2] FROM docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+#5 resolve docker.io/library/debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f 0.0s done
+#5 DONE 0.0s
+
+#6 [base 2/2] RUN rm -f /etc/apt/sources.list.d/debian.sources &&     printf 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/%s/ trixie main\ndeb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/%s/ trixie-security main\n' "20261013T000000Z" "20261013T000000Z" > /etc/apt/sources.list
+#6 CACHED
+
+#7 [dev 1/3] RUN apt-get update && apt-get install -y --no-install-recommends     clang cmake ninja-build make python3 gdb valgrind linux-perf     libfuse3-dev fuse3 pkg-config ca-certificates &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [dev 2/3] RUN apt-get update && apt-get install -y --no-install-recommends libclang-rt-19-dev &&     dpkg-query -W > /toolchain-packages.txt && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [dev 3/3] WORKDIR /src
+#9 CACHED
+
+#10 [internal] load .dockerignore
+#10 transferring context: 289B done
+#10 DONE 0.0s
+
+#11 exporting to image
+#11 exporting layers done
+#11 exporting manifest sha256:8517927f03ca0bc7eb271ed219f5a368ac4768511a0f32d16da5cef741a8ff65 done
+#11 exporting config sha256:ba862f68336a488b2dd62ad988c943201986561b8678a52e0beb96e3654fe4fb done
+#11 exporting attestation manifest sha256:775bf741a9498098acfe955aa4af68c9e575f25d5681c473d7a79d47dd48558f 0.0s done
+#11 exporting manifest list sha256:9b129b4c2d38e4f7ef75ea8bd74e7a76efbb4e6a3ea16a78a9062403685393b8 0.0s done
+#11 naming to docker.io/library/os-subsystems-dev:local done
+#11 unpacking to docker.io/library/os-subsystems-dev:local done
+#11 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/mllw89fs6inl82wehweo90upe
+mkdir -p results/m7-final
+docker run --rm --cpus=4 --memory=4g -v "/Users/nickzhu/Desktop/Projects/os-subsystems:/checkout:ro" -v "/Users/nickzhu/Desktop/Projects/os-subsystems/results:/src/results" os-subsystems-dev:local sh /checkout/scripts/container.sh sh scripts/repro.sh
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'fuse3'
+--   Found fuse3, version 3.17.2
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/repro-a
+[1/38] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[2/38] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[3/38] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[4/38] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[5/38] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+[6/38] Building CXX object vm/CMakeFiles/os_vm.dir/vm.cpp.o
+[7/38] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[8/38] Building CXX object sync/CMakeFiles/os_sync.dir/synchronization.cpp.o
+[9/38] Linking CXX static library rpc/libos_rpc.a
+[10/38] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+[11/38] Linking CXX static library sched/libos_sched.a
+[12/38] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+[13/38] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[14/38] Linking CXX static library vm/libos_vm.a
+[15/38] Building CXX object vm/CMakeFiles/vm_trace_workload.dir/trace_workload.cpp.o
+[16/38] Linking CXX static library fs/libos_fs.a
+[17/38] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[18/38] Building CXX object fs/CMakeFiles/fs_mkfs.dir/mkfs_main.cpp.o
+[19/38] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[20/38] Building CXX object fs/CMakeFiles/fs_check.dir/check_main.cpp.o
+[21/38] Linking CXX static library sync/libos_sync.a
+[22/38] Building CXX object vm/CMakeFiles/vm_bench.dir/main.cpp.o
+[23/38] Building CXX object fs/CMakeFiles/fs_mount.dir/fuse_main.cpp.o
+[24/38] Building CXX object fs/CMakeFiles/fs_cli.dir/cli_main.cpp.o
+[25/38] Linking CXX executable os_info
+[26/38] Linking CXX executable rpc/rpc_server
+[27/38] Linking CXX executable rpc/rpc_bench
+[28/38] Linking CXX executable sched/sched_bench
+[29/38] Linking CXX executable vm/vm_bench
+[30/38] Linking CXX executable vm/vm_trace_workload
+[31/38] Linking CXX executable fs/fs_mkfs
+[32/38] Linking CXX executable fs/fs_check
+[33/38] Linking CXX executable fs/fs_cli
+[34/38] Linking CXX executable fs/fs_mount
+[35/38] Building CXX object sync/CMakeFiles/sync_bench.dir/bench_main.cpp.o
+[36/38] Linking CXX executable sync/sync_bench
+[37/38] Building CXX object bench/CMakeFiles/hotspot_bench.dir/hotspots.cpp.o
+[38/38] Linking CXX executable bench/hotspot_bench
+-- Install configuration: "Release"
+-- Installing: /build/install-a/bin/os_info
+-- Installing: /build/install-a/bin/rpc_server
+-- Installing: /build/install-a/bin/rpc_bench
+-- Installing: /build/install-a/bin/sched_bench
+-- Installing: /build/install-a/bin/vm_bench
+-- Installing: /build/install-a/bin/fs_mkfs
+-- Installing: /build/install-a/bin/fs_check
+-- Installing: /build/install-a/bin/fs_cli
+-- Installing: /build/install-a/bin/fs_mount
+-- Installing: /build/install-a/bin/sync_bench
+-- Installing: /build/install-a/bin/hotspot_bench
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'fuse3'
+--   Found fuse3, version 3.17.2
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /build/repro-b
+[1/38] Building CXX object rpc/CMakeFiles/os_rpc.dir/protocol.cpp.o
+[2/38] Building CXX object sched/CMakeFiles/os_sched.dir/scheduler.cpp.o
+[3/38] Building CXX object rpc/CMakeFiles/os_rpc.dir/client.cpp.o
+[4/38] Building CXX object rpc/CMakeFiles/os_rpc.dir/server.cpp.o
+[5/38] Building CXX object fs/CMakeFiles/os_fs.dir/format.cpp.o
+[6/38] Building CXX object vm/CMakeFiles/os_vm.dir/vm.cpp.o
+[7/38] Building CXX object sync/CMakeFiles/os_sync.dir/synchronization.cpp.o
+[8/38] Building CXX object CMakeFiles/os_info.dir/src/info.cpp.o
+[9/38] Linking CXX static library rpc/libos_rpc.a
+[10/38] Building CXX object fs/CMakeFiles/os_fs.dir/image.cpp.o
+[11/38] Building CXX object rpc/CMakeFiles/rpc_bench.dir/bench_main.cpp.o
+[12/38] Linking CXX static library sched/libos_sched.a
+[13/38] Linking CXX static library vm/libos_vm.a
+[14/38] Building CXX object rpc/CMakeFiles/rpc_server.dir/server_main.cpp.o
+[15/38] Building CXX object vm/CMakeFiles/vm_trace_workload.dir/trace_workload.cpp.o
+[16/38] Building CXX object fs/CMakeFiles/os_fs.dir/check.cpp.o
+[17/38] Linking CXX static library fs/libos_fs.a
+[18/38] Building CXX object sched/CMakeFiles/sched_bench.dir/main.cpp.o
+[19/38] Building CXX object fs/CMakeFiles/fs_mkfs.dir/mkfs_main.cpp.o
+[20/38] Building CXX object fs/CMakeFiles/fs_check.dir/check_main.cpp.o
+[21/38] Linking CXX static library sync/libos_sync.a
+[22/38] Building CXX object vm/CMakeFiles/vm_bench.dir/main.cpp.o
+[23/38] Building CXX object fs/CMakeFiles/fs_cli.dir/cli_main.cpp.o
+[24/38] Linking CXX executable os_info
+[25/38] Linking CXX executable rpc/rpc_server
+[26/38] Linking CXX executable rpc/rpc_bench
+[27/38] Linking CXX executable sched/sched_bench
+[28/38] Linking CXX executable vm/vm_bench
+[29/38] Building CXX object fs/CMakeFiles/fs_mount.dir/fuse_main.cpp.o
+[30/38] Linking CXX executable vm/vm_trace_workload
+[31/38] Linking CXX executable fs/fs_mkfs
+[32/38] Linking CXX executable fs/fs_cli
+[33/38] Linking CXX executable fs/fs_check
+[34/38] Linking CXX executable fs/fs_mount
+[35/38] Building CXX object bench/CMakeFiles/hotspot_bench.dir/hotspots.cpp.o
+[36/38] Linking CXX executable bench/hotspot_bench
+[37/38] Building CXX object sync/CMakeFiles/sync_bench.dir/bench_main.cpp.o
+[38/38] Linking CXX executable sync/sync_bench
+-- Install configuration: "Release"
+-- Installing: /build/install-b/bin/os_info
+-- Installing: /build/install-b/bin/rpc_server
+-- Installing: /build/install-b/bin/rpc_bench
+-- Installing: /build/install-b/bin/sched_bench
+-- Installing: /build/install-b/bin/vm_bench
+-- Installing: /build/install-b/bin/fs_mkfs
+-- Installing: /build/install-b/bin/fs_check
+-- Installing: /build/install-b/bin/fs_cli
+-- Installing: /build/install-b/bin/fs_mount
+-- Installing: /build/install-b/bin/sync_bench
+-- Installing: /build/install-b/bin/hotspot_bench
+PASS: two clean build directories produced identical installed binary hashes

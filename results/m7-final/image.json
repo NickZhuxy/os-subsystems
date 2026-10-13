@@ -1,0 +1,137 @@
+{
+  "utc": "2026-10-13T23:22:04.252708+00:00",
+  "command": [
+    "docker",
+    "image",
+    "inspect",
+    "os-subsystems:local"
+  ],
+  "image_id": "sha256:fed2fa5cb48df4d5430255f452395fdeb3e7ae61f2ca5de938bdf5491068962a",
+  "architecture": "arm64",
+  "os": "linux",
+  "inspect_size_bytes": 30704510,
+  "docker_ls_size": "142MB",
+  "docker_ls_command": [
+    "docker",
+    "image",
+    "ls",
+    "--format",
+    "{{json .}}",
+    "os-subsystems:local"
+  ],
+  "uncompressed_layer_tar_bytes": 104949248,
+  "uncompressed_layer_tar_MB": 104.949248,
+  "layer_blob_bytes": 30700562,
+  "layers": [
+    {
+      "blob": "blobs/sha256/bbeda6b4abb749f743f4547ef5a28070a14de8caef211daa5afb78d5b5fa21ba",
+      "stored_bytes": 30200282,
+      "uncompressed_tar_bytes": 103137280
+    },
+    {
+      "blob": "blobs/sha256/8aed9e8774f02380c339829e48bf11cabf3dee95915500149c51e596c0462876",
+      "stored_bytes": 293,
+      "uncompressed_tar_bytes": 4096
+    },
+    {
+      "blob": "blobs/sha256/922acd447f508c43628234cd956baf03e8a8e410bdb1b717811bb0e04cd194dc",
+      "stored_bytes": 202785,
+      "uncompressed_tar_bytes": 849920
+    },
+    {
+      "blob": "blobs/sha256/440a0b9e8083b185c4c61b734c12c878233097956785f9b998bc78fc33669fd7",
+      "stored_bytes": 297202,
+      "uncompressed_tar_bytes": 957952
+    }
+  ],
+  "user": "65534:65534",
+  "definition": "Sum of uncompressed layer tar streams, including tar metadata and padding; does not include compressed copies or storage-block allocation",
+  "inspect_caveat": "Engine 29.7.2 with containerd reports content-only size in inspect. image ls also counts unpacked snapshots. Do not equate these metrics.",
+  "docker_version": {
+    "Client": {
+      "Version": "29.7.2",
+      "ApiVersion": "1.55",
+      "DefaultAPIVersion": "1.55",
+      "GitCommit": "a7dcaa6",
+      "GoVersion": "go1.26.5",
+      "Os": "darwin",
+      "Arch": "arm64",
+      "BuildTime": "Wed Aug  5 18:27:50 2026",
+      "Context": "desktop-linux"
+    },
+    "Server": {
+      "Platform": {
+        "Name": "Docker Desktop 4.90.0 (238679)"
+      },
+      "Version": "29.7.2",
+      "ApiVersion": "1.55",
+      "MinAPIVersion": "1.40",
+      "Os": "linux",
+      "Arch": "arm64",
+      "Components": [
+        {
+          "Name": "Engine",
+          "Version": "29.7.2",
+          "Details": {
+            "ApiVersion": "1.55",
+            "Arch": "arm64",
+            "BuildTime": "Wed Aug  5 18:28:35 2026",
+            "Experimental": "false",
+            "GitCommit": "6a43e3d",
+            "GoVersion": "go1.26.5",
+            "KernelVersion": "7.0.12-linuxkit",
+            "MinAPIVersion": "1.40",
+            "Module": "github.com/moby/moby/v2",
+            "ModuleVersion": "v2.0.0+unknown",
+            "Os": "linux"
+          }
+        },
+        {
+          "Name": "containerd",
+          "Version": "v2.3.3",
+          "Details": {
+            "GitCommit": "aad11006b869517fcd3009450b6f82da282e1a9b"
+          }
+        },
+        {
+          "Name": "runc",
+          "Version": "1.4.3",
+          "Details": {
+            "GitCommit": "v1.4.3-0-gbb14dabe"
+          }
+        },
+        {
+          "Name": "docker-init",
+          "Version": "0.19.0",
+          "Details": {
+            "GitCommit": "de40ad0"
+          }
+        }
+      ],
+      "GitCommit": "6a43e3d",
+      "GoVersion": "go1.26.5",
+      "KernelVersion": "7.0.12-linuxkit",
+      "BuildTime": "2026-08-05T18:28:35.000000000+00:00"
+    }
+  },
+  "smoke_command": [
+    "docker",
+    "run",
+    "--rm",
+    "-v",
+    "/Users/nickzhu/Desktop/Projects/os-subsystems/scripts/runtime-smoke.sh:/smoke.sh:ro",
+    "os-subsystems:local",
+    "sh",
+    "/smoke.sh"
+  ],
+  "smoke_returncode": 0,
+  "binary_hash_command": [
+    "docker",
+    "run",
+    "--rm",
+    "os-subsystems:local",
+    "sh",
+    "-c",
+    "cd /usr/local && sha256sum bin/*"
+  ]
+}

@@ -6,6 +6,14 @@ for tool in clang clang++ gcc g++ cmake ninja; do
 done
 os_info
 sched_bench --workload weighted --policy cfs
+vm_bench --trace belady --policy fifo --frames 3
+sync_bench --kind hazard-queue --threads 2 --iterations 1000
+hotspot_bench --component vm --iterations 1024
+hotspot_bench --component fs --iterations 1
+fs_mkfs --image /tmp/runtime-fs.img --blocks 128 --inodes 32
+fs_cli --image /tmp/runtime-fs.img --op mkdir --path /data
+fs_cli --image /tmp/runtime-fs.img --op create --path /data/file
+fs_check --image /tmp/runtime-fs.img
 rpc_server --port 9017 >/tmp/os-subsystems-port 2>/tmp/os-subsystems-server &
 server_pid=$!
 trap 'kill "$server_pid" 2>/dev/null || true; wait "$server_pid" || true' EXIT

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Run on the host after make image; save Docker's image measurement verbatim."""
 import datetime as dt
+import argparse
 import gzip
 import json
 from pathlib import Path
@@ -9,7 +10,10 @@ import tarfile
 import tempfile
 
 root = Path(__file__).resolve().parents[1]
-destination = root / "results/m7"
+parser = argparse.ArgumentParser()
+parser.add_argument("--output", type=Path, default=Path("results/m7-final"))
+args = parser.parse_args()
+destination = (root / args.output).resolve()
 destination.mkdir(parents=True, exist_ok=True)
 image = "os-subsystems:local"
 command = ["docker", "image", "inspect", image]
@@ -55,5 +59,5 @@ record = {"utc": dt.datetime.now(dt.timezone.utc).isoformat(), "command": comman
           "binary_hash_command": hash_command}
 (destination / "image.json").write_text(json.dumps(record, indent=2) + "\n")
 if smoke.returncode:
-    raise RuntimeError("runtime smoke test failed; see results/m7/runtime-smoke.log")
+    raise RuntimeError(f"runtime smoke test failed; see {destination}/runtime-smoke.log")
 print(json.dumps(record, indent=2))

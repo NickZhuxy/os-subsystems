@@ -1,0 +1,94 @@
+[
+  {
+    "component": "vm",
+    "cachegrind_iterations": 200000,
+    "native_iterations": 1000000,
+    "native_repeats": 7,
+    "native_before_seconds": {
+      "minimum": 0.090378292,
+      "median": 0.094055709,
+      "maximum": 0.101327834
+    },
+    "native_after_seconds": {
+      "minimum": 0.060692833,
+      "median": 0.061119833,
+      "maximum": 0.062313125
+    },
+    "native_median_reduction_percent": 35.01741292492942,
+    "data_references": {
+      "before": 88450008,
+      "after": 88650008,
+      "reduction_percent": -0.22611642952028443
+    },
+    "D1_data_misses": {
+      "before": 3774197,
+      "after": 225206,
+      "reduction_percent": 94.0330088757953
+    },
+    "LL_data_misses": {
+      "before": 723,
+      "after": 723,
+      "reduction_percent": 0.0
+    },
+    "D1_data_miss_rate": {
+      "before": 0.04267039749730718,
+      "after": 0.002540394581803083,
+      "reduction_percent": 94.04647078349012
+    },
+    "LL_data_miss_rate": {
+      "before": 8.17410892715804e-06,
+      "after": 8.15566762272599e-06,
+      "reduction_percent": 0.22560629661758647
+    },
+    "image_block_reads": {
+      "before": 0,
+      "after": 0
+    }
+  },
+  {
+    "component": "fs",
+    "cachegrind_iterations": 20,
+    "native_iterations": 100,
+    "native_repeats": 7,
+    "native_before_seconds": {
+      "minimum": 0.240405,
+      "median": 0.241914542,
+      "maximum": 0.26043425
+    },
+    "native_after_seconds": {
+      "minimum": 0.000248875,
+      "median": 0.00025,
+      "maximum": 0.000261625
+    },
+    "native_median_reduction_percent": 99.89665772138659,
+    "data_references": {
+      "before": 94810728,
+      "after": 192788,
+      "reduction_percent": 99.79666014166668
+    },
+    "D1_data_misses": {
+      "before": 81,
+      "after": 80,
+      "reduction_percent": 1.2345679012345734
+    },
+    "LL_data_misses": {
+      "before": 81,
+      "after": 80,
+      "reduction_percent": 1.2345679012345734
+    },
+    "D1_data_miss_rate": {
+      "before": 8.543336994522392e-07,
+      "after": 0.00041496358694524557,
+      "reduction_percent": -48471.604656506206
+    },
+    "LL_data_miss_rate": {
+      "before": 8.543336994522392e-07,
+      "after": 0.00041496358694524557,
+      "reduction_percent": -48471.604656506206
+    },
+    "image_block_reads": {
+      "before": 168700,
+      "after": 40
+    }
+  }
+]

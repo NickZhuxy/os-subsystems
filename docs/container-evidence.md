@@ -44,6 +44,27 @@ No daemon restart or upgrade was needed to make this distinction.
 
 ## Validation provenance
 
+GitHub Actions run [38491239779](https://github.com/NickZhuxy/os-subsystems/actions/runs/38491239779)
+tested commit `eedda709a53c7a6b926132e018b556f274c79470` on Ubuntu 24.04 x86-64
+runners on 2026-10-14 UTC. All five jobs passed. The normal, ASan, UBSan, and TSan
+jobs each passed eleven tests, including the mounted FUSE test, with no skips.
+The runtime builder skipped its device-dependent FUSE test; the separate test
+jobs supply that coverage. Its non-root runtime smoke test passed.
+
+`results/ci/38491239779/` preserves the full job log, GitHub run metadata, a
+test-count summary, and the image record extracted from the log. The x86-64
+runtime measured 82,670,080 uncompressed layer-tar bytes and Docker reported
+80.2 MB. This runner exported uncompressed layer blobs, so its `layer_blob_bytes`
+is not a compressed-size measurement. These measurements are distinct from the
+ARM64 image above. They do not establish cross-architecture binary identity.
+
+To fetch the original remote evidence with an authenticated GitHub CLI:
+
+```sh
+gh run view 38491239779 --repo NickZhuxy/os-subsystems --json databaseId,headSha,headBranch,event,status,conclusion,url,createdAt,updatedAt,jobs
+gh run view 38491239779 --repo NickZhuxy/os-subsystems --log
+```
+
 `results/validation/final-sanitizers.log` contains the current successful four-build
 test run: eleven tests per configuration, 44 passes, no skips. `final-summary.json`
 records source file hashes and scope. The ARM64 runtime builder also executes the

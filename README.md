@@ -22,7 +22,7 @@ flowchart LR
 
 | Component | Status | Results |
 | --- | --- | --- |
-| Docker and continuous integration (CI) | Local build and tests pass; GitHub CI has not run | Image and binary measurements below |
+| Docker and continuous integration (CI) | Local ARM64 tests and GitHub x86-64 CI pass | Image and binary measurements below |
 | Remote procedure call (RPC) service | Implemented and tested | Saved loopback measurements below |
 | Scheduler simulator | Implemented and tested | Saved simulation results below |
 | Demand paging | Implemented and tested | Synthetic and captured-trace results below |
@@ -185,7 +185,9 @@ See [both miss-rate tables, limits, and reproduction commands](docs/profiling.md
 | Local image disk use reported by Docker | 142 MB | [Image record](results/m7-final/image.json) |
 | Two clean Release builds | Identical hashes for all 11 installed programs | [Build A](results/m7-final/binaries-a.sha256), [build B](results/m7-final/binaries-b.sha256) |
 | Runtime image programs | Same hashes as both clean builds | [Runtime hashes](results/m7-final/runtime-binaries.sha256) |
-| Normal, ASan, UBSan, and TSan tests | All 44 test runs passed; none skipped; mounted FUSE passed in every build | [Validation record](results/validation/final-summary.json), [test log](results/validation/final-sanitizers.log) |
+| Normal, ASan, UBSan, and TSan tests, local ARM64 | All 44 test runs passed; none skipped; mounted FUSE passed in every build | [Validation record](results/validation/final-summary.json), [test log](results/validation/final-sanitizers.log) |
+| Normal, ASan, UBSan, and TSan tests, GitHub x86-64 | All 44 test runs passed; none skipped; mounted FUSE passed in every build | [CI record](results/ci/38491239779/summary.json), [test log](results/ci/38491239779/run.log) |
+| Uncompressed image layer archives, Linux x86-64 | 82,670,080 bytes (82.670 MB); runtime smoke test passed | [CI image record](results/ci/38491239779/image.json) |
 
 The initial M7/M5/M1 checkpoint remains in `results/m7/`. The image measurements
 count different data. Uncompressed archive bytes include
@@ -193,7 +195,8 @@ tar headers and padding. Local disk use includes compressed data and unpacked
 files. Docker Engine 29.7.2 reports a smaller value through `image inspect` on
 this store. See the [Docker size notes](docs/container-evidence.md). The binary
 check does not establish identical image manifests or identical builds across
-CPU architectures. GitHub CI remains unverified.
+CPU architectures. GitHub CI used Ubuntu 24.04 runners on 2026-10-14 UTC.
+The x86-64 image result is separate from the local ARM64 measurement.
 
 ## Build and test
 
@@ -232,8 +235,9 @@ See [the Dockerfile](docker/Dockerfile) for these values. The runtime image hold
 the installed programs and their runtime libraries. Build tools stay in the
 development image.
 
-The CI file is ready for GitHub Actions. A local test result does not show that
-GitHub CI has passed.
+The first [GitHub CI run](https://github.com/NickZhuxy/os-subsystems/actions/runs/38491239779)
+passed all five jobs at commit `eedda70`. The jobs check four test builds and the
+runtime image. The saved logs include the source commit and each job result.
 
 ## Repeat the measurements
 

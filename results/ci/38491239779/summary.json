@@ -1,0 +1,38 @@
+{
+  "source_commit": "eedda709a53c7a6b926132e018b556f274c79470",
+  "workflow_url": "https://github.com/NickZhuxy/os-subsystems/actions/runs/38491239779",
+  "conclusion": "success",
+  "runner_label": "ubuntu-24.04",
+  "container_architecture": "amd64",
+  "test_builds": {
+    "none": {
+      "passed": 11,
+      "skipped": 0,
+      "mounted_fuse_passed": true
+    },
+    "address": {
+      "passed": 11,
+      "skipped": 0,
+      "mounted_fuse_passed": true
+    },
+    "undefined": {
+      "passed": 11,
+      "skipped": 0,
+      "mounted_fuse_passed": true
+    },
+    "thread": {
+      "passed": 11,
+      "skipped": 0,
+      "mounted_fuse_passed": true
+    }
+  },
+  "total_test_passes": 44,
+  "runtime_job": "success",
+  "runtime_builder_fuse_skipped": true,
+  "runtime_builder_fuse_note": "Image builds lack the mount device; all four separate test jobs pass the real mounted test.",
+  "log_sha256": "bde3a8e0a0b3071d7a0a03f160875c345dba22fc39840e7ed94c86a75ba59da5",
+  "reproduce_evidence_fetch": [
+    "gh run view 38491239779 --repo NickZhuxy/os-subsystems --json databaseId,headSha,headBranch,event,status,conclusion,url,createdAt,updatedAt,jobs",
+    "gh run view 38491239779 --repo NickZhuxy/os-subsystems --log"
+  ]
+}
